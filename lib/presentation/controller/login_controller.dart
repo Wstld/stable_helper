@@ -43,6 +43,7 @@ class LoginController extends GetxController {
       Get.snackbar(passwordErrorMsg, '',
           snackPosition: SnackPosition.TOP, snackStyle: SnackStyle.FLOATING);
     } else {
+      emailErrorTxt.value = '';
       _authController.login(emaiInput.value, passwordInput.value);
     }
   }

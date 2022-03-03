@@ -13,6 +13,6 @@ class LoginMiddleWare extends GetMiddleware {
     log('In Redirect');
     return authController.user.value != null
         ? RouteSettings(name: Pages.home.routeName)
-        : null;
+        : RouteSettings(name: Pages.login.routeName);
   }
 }

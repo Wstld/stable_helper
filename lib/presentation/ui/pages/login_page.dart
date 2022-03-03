@@ -23,15 +23,19 @@ class LoginPage extends GetView<AuthController> {
               child: Form(
                 child: Column(
                   children: [
-                    Obx(() => TextFormField(
-                          onChanged: (value) => _ctrl.emaiInput.value = value,
-                          controller: _ctrl.emailInputTextController,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                              errorText: _ctrl.emailErrorTxt.value),
-                          maxLines: 1,
-                        )),
+                    Obx(
+                      () => TextFormField(
+                        onChanged: (value) => _ctrl.emaiInput.value = value,
+                        controller: _ctrl.emailInputTextController,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                            errorText: _ctrl.emailErrorTxt.value,
+                            hintText: emailHint),
+                        maxLines: 1,
+                      ),
+                    ),
                     TextFormField(
+                      decoration: const InputDecoration(hintText: passwordHint),
                       onChanged: (value) => _ctrl.passwordInput.value = value,
                       controller: _ctrl.passwordInputTextController,
                       keyboardType: TextInputType.text,
@@ -43,7 +47,7 @@ class LoginPage extends GetView<AuthController> {
                         child: const Text(registerBtnTxt)),
                     ElevatedButton(
                         onPressed: () => _ctrl.submit(),
-                        child: const Text(submintBtnTxt)),
+                        child: const Text(loginBtnTxt)),
                   ],
                 ),
               ),
