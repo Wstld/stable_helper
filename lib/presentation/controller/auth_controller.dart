@@ -33,4 +33,13 @@ class AuthController extends GetxController {
     _authRepo.firebaseSignout();
     Get.toNamed(Pages.login.routeName);
   }
+
+  Future<void> createUser(String email, String password) async {
+    try {
+      await _authRepo.firebaseCreateUser(email, password);
+      Get.toNamed(Pages.home.routeName);
+    } catch (e) {
+      Get.snackbar(e.toString(), '');
+    }
+  }
 }
