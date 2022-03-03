@@ -1,12 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stable_helper/core/constants/string_const.dart';
+import 'package:stable_helper/presentation/controller/controllers.dart';
 
 class LoginController extends GetxController {
-  LoginController();
+  LoginController(this._authController);
 
+  final AuthController _authController;
   final TextEditingController emailInputTextController =
       TextEditingController();
   final TextEditingController passwordInputTextController =
@@ -31,7 +31,6 @@ class LoginController extends GetxController {
       return false;
     } else {
       emailErrorTxt.value = null;
-      log('OK');
       return true;
     }
   }
@@ -44,11 +43,7 @@ class LoginController extends GetxController {
       Get.snackbar(passwordErrorMsg, '',
           snackPosition: SnackPosition.TOP, snackStyle: SnackStyle.FLOATING);
     } else {
-      try {
-        //login
-      } catch (e) {
-        //why?
-      }
+      _authController.login(emaiInput.value, passwordInput.value);
     }
   }
 }
