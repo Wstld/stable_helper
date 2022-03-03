@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stable_helper/core/constants/enums.dart';
 import 'package:stable_helper/core/constants/string_const.dart';
 import 'package:stable_helper/core/theme/ui_helper.dart';
 import 'package:stable_helper/presentation/controller/controllers.dart';
@@ -12,10 +11,9 @@ class LoginPage extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
-        body: GetBuilder<LoginController>(
+        body: GetX<LoginController>(
           init: LoginController(Get.find<AuthController>()),
           builder: (_ctrl) {
             return Container(
@@ -23,16 +21,14 @@ class LoginPage extends GetView<AuthController> {
               child: Form(
                 child: Column(
                   children: [
-                    Obx(
-                      () => TextFormField(
-                        onChanged: (value) => _ctrl.emaiInput.value = value,
-                        controller: _ctrl.emailInputTextController,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                            errorText: _ctrl.emailErrorTxt.value,
-                            hintText: emailHint),
-                        maxLines: 1,
-                      ),
+                    TextFormField(
+                      onChanged: (value) => _ctrl.emaiInput.value = value,
+                      controller: _ctrl.emailInputTextController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          errorText: _ctrl.emailErrorTxt.value,
+                          hintText: emailHint),
+                      maxLines: 1,
                     ),
                     TextFormField(
                       decoration: const InputDecoration(hintText: passwordHint),
@@ -42,12 +38,37 @@ class LoginPage extends GetView<AuthController> {
                       maxLines: 1,
                       obscureText: true,
                     ),
+                    if (_ctrl.formType.value == LoginFormType.register)
+                      TextFormField(
+                        decoration: InputDecoration(
+                            hintText: passwordHint,
+                            errorText: _ctrl.passwordErrorTxt.value),
+                        onChanged: (value) =>
+                            _ctrl.passwordSecondInput.value = value,
+                        controller: _ctrl.passwordSecondInputTextController,
+                        keyboardType: TextInputType.text,
+                        maxLines: 1,
+                        obscureText: true,
+                      ),
                     TextButton(
-                        onPressed: () => {log('tap tap')},
-                        child: const Text(registerBtnTxt)),
+                        onPressed: _ctrl.formType.value == LoginFormType.login
+                            ? () =>
+                                {_ctrl.formType.value = LoginFormType.register}
+                            : () =>
+                                {_ctrl.formType.value = LoginFormType.login},
+                        child: _ctrl.formType.value == LoginFormType.login
+                            ? const Text(registerBtnTxt)
+                            : const Text(backBtnTxt)),
                     ElevatedButton(
-                        onPressed: () => _ctrl.submit(),
-                        child: const Text(loginBtnTxt)),
+                        onPressed: () =>
+                            _ctrl.formType.value == LoginFormType.login
+                                ? _ctrl.login()
+                                : _ctrl.register(),
+                        child: Text(
+                          _ctrl.formType.value == LoginFormType.login
+                              ? loginBtnTxt
+                              : registerSubmitBtnTxt,
+                        )),
                   ],
                 ),
               ),
