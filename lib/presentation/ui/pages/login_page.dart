@@ -16,7 +16,7 @@ class LoginPage extends GetView<AuthController> {
     return SafeArea(
       child: Scaffold(
         body: GetBuilder<LoginController>(
-          init: LoginController(),
+          init: LoginController(Get.find<AuthController>()),
           builder: (_ctrl) {
             return Container(
               padding: pagePadding,
