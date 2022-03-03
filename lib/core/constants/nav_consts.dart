@@ -1,4 +1,4 @@
-enum Pages { login, home }
+enum Pages { login, home, splash }
 
 extension PageExtensions on Pages {
   String get routeName {
@@ -7,6 +7,8 @@ extension PageExtensions on Pages {
         return '/login';
       case Pages.home:
         return '/home';
+      case Pages.splash:
+        return '/splash';
     }
   }
 
@@ -16,6 +18,8 @@ extension PageExtensions on Pages {
         return 'Login';
       case Pages.home:
         return 'Home';
+      case Pages.splash:
+        return 'Splash';
     }
   }
 }

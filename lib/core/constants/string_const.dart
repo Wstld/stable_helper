@@ -1,4 +1,6 @@
 const String emailErrorMsg = 'Not a valid email';
 const String passwordErrorMsg = 'Not a valid password';
-const String submintBtnTxt = 'Submit';
+const String loginBtnTxt = 'Login';
 const String registerBtnTxt = 'No account?';
+const String passwordHint = 'Password';
+const String emailHint = 'Email';

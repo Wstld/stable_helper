@@ -31,5 +31,6 @@ class AuthController extends GetxController {
 
   void logout() {
     _authRepo.firebaseSignout();
+    Get.toNamed(Pages.login.routeName);
   }
 }
