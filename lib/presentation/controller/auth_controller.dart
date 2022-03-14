@@ -12,8 +12,10 @@ class AuthController extends GetxController {
 
   @override
   void onInit() {
-    //bind to user chages
-    _authRepo.firebaseAuth.authStateChanges().listen((event) {
+    user.value = _authRepo.firebaseAuth.currentUser;
+
+    //bind to user changes
+    _authRepo.firebaseAuth.authStateChanges().listen((event) async {
       user.value = event;
       log('userchanged: ${event.toString()}');
     });
@@ -31,7 +33,7 @@ class AuthController extends GetxController {
 
   void logout() {
     _authRepo.firebaseSignout();
-    Get.toNamed(Pages.login.routeName);
+    Get.offNamed(Pages.login.routeName);
   }
 
   Future<void> createUser(String email, String password) async {
