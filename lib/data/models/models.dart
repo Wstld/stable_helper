@@ -47,7 +47,8 @@ class Stables with _$Stables {
 
 @freezed
 class StablesSchedule with _$StablesSchedule {
-  factory StablesSchedule({
+  const StablesSchedule._();
+  const factory StablesSchedule({
     required List<StableChore> monday,
     required List<StableChore> tuesday,
     required List<StableChore> wednesday,
@@ -56,6 +57,25 @@ class StablesSchedule with _$StablesSchedule {
     required List<StableChore> saturday,
     required List<StableChore> sunday,
   }) = _StablesSchedule;
+
+  List<StableChore> getTodaysSchedule(Days day) {
+    switch (day) {
+      case Days.monday:
+        return monday;
+      case Days.tuesday:
+        return tuesday;
+      case Days.wednesday:
+        return wednesday;
+      case Days.thursday:
+        return thursday;
+      case Days.friday:
+        return friday;
+      case Days.saturday:
+        return saturday;
+      case Days.sunday:
+        return sunday;
+    }
+  }
 
   factory StablesSchedule.fromJson(Map<String, dynamic> json) =>
       _$StablesScheduleFromJson(json);
@@ -89,16 +109,4 @@ class StableChore with _$StableChore {
 
   factory StableChore.fromJson(Map<String, dynamic> json) =>
       _$StableChoreFromJson(json);
-}
-
-@freezed
-class StableWork with _$StableWork {
-  factory StableWork({
-    required Days day,
-    required String time,
-    required String displayName,
-  }) = _StableWork;
-
-  factory StableWork.fromJson(Map<String, dynamic> json) =>
-      _$StableWorkFromJson(json);
 }

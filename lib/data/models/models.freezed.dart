@@ -955,15 +955,16 @@ class __$StablesScheduleCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_StablesSchedule implements _StablesSchedule {
-  _$_StablesSchedule(
+class _$_StablesSchedule extends _StablesSchedule {
+  const _$_StablesSchedule(
       {required this.monday,
       required this.tuesday,
       required this.wednesday,
       required this.thursday,
       required this.friday,
       required this.saturday,
-      required this.sunday});
+      required this.sunday})
+      : super._();
 
   factory _$_StablesSchedule.fromJson(Map<String, dynamic> json) =>
       _$$_StablesScheduleFromJson(json);
@@ -1024,8 +1025,8 @@ class _$_StablesSchedule implements _StablesSchedule {
   }
 }
 
-abstract class _StablesSchedule implements StablesSchedule {
-  factory _StablesSchedule(
+abstract class _StablesSchedule extends StablesSchedule {
+  const factory _StablesSchedule(
       {required List<StableChore> monday,
       required List<StableChore> tuesday,
       required List<StableChore> wednesday,
@@ -1033,6 +1034,7 @@ abstract class _StablesSchedule implements StablesSchedule {
       required List<StableChore> friday,
       required List<StableChore> saturday,
       required List<StableChore> sunday}) = _$_StablesSchedule;
+  const _StablesSchedule._() : super._();
 
   factory _StablesSchedule.fromJson(Map<String, dynamic> json) =
       _$_StablesSchedule.fromJson;
@@ -1817,193 +1819,4 @@ abstract class Feeding implements StableChore {
   @override
   @JsonKey(ignore: true)
   $FeedingCopyWith<Feeding> get copyWith => throw _privateConstructorUsedError;
-}
-
-StableWork _$StableWorkFromJson(Map<String, dynamic> json) {
-  return _StableWork.fromJson(json);
-}
-
-/// @nodoc
-class _$StableWorkTearOff {
-  const _$StableWorkTearOff();
-
-  _StableWork call(
-      {required Days day, required String time, required String displayName}) {
-    return _StableWork(
-      day: day,
-      time: time,
-      displayName: displayName,
-    );
-  }
-
-  StableWork fromJson(Map<String, Object?> json) {
-    return StableWork.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $StableWork = _$StableWorkTearOff();
-
-/// @nodoc
-mixin _$StableWork {
-  Days get day => throw _privateConstructorUsedError;
-  String get time => throw _privateConstructorUsedError;
-  String get displayName => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $StableWorkCopyWith<StableWork> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $StableWorkCopyWith<$Res> {
-  factory $StableWorkCopyWith(
-          StableWork value, $Res Function(StableWork) then) =
-      _$StableWorkCopyWithImpl<$Res>;
-  $Res call({Days day, String time, String displayName});
-}
-
-/// @nodoc
-class _$StableWorkCopyWithImpl<$Res> implements $StableWorkCopyWith<$Res> {
-  _$StableWorkCopyWithImpl(this._value, this._then);
-
-  final StableWork _value;
-  // ignore: unused_field
-  final $Res Function(StableWork) _then;
-
-  @override
-  $Res call({
-    Object? day = freezed,
-    Object? time = freezed,
-    Object? displayName = freezed,
-  }) {
-    return _then(_value.copyWith(
-      day: day == freezed
-          ? _value.day
-          : day // ignore: cast_nullable_to_non_nullable
-              as Days,
-      time: time == freezed
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as String,
-      displayName: displayName == freezed
-          ? _value.displayName
-          : displayName // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$StableWorkCopyWith<$Res> implements $StableWorkCopyWith<$Res> {
-  factory _$StableWorkCopyWith(
-          _StableWork value, $Res Function(_StableWork) then) =
-      __$StableWorkCopyWithImpl<$Res>;
-  @override
-  $Res call({Days day, String time, String displayName});
-}
-
-/// @nodoc
-class __$StableWorkCopyWithImpl<$Res> extends _$StableWorkCopyWithImpl<$Res>
-    implements _$StableWorkCopyWith<$Res> {
-  __$StableWorkCopyWithImpl(
-      _StableWork _value, $Res Function(_StableWork) _then)
-      : super(_value, (v) => _then(v as _StableWork));
-
-  @override
-  _StableWork get _value => super._value as _StableWork;
-
-  @override
-  $Res call({
-    Object? day = freezed,
-    Object? time = freezed,
-    Object? displayName = freezed,
-  }) {
-    return _then(_StableWork(
-      day: day == freezed
-          ? _value.day
-          : day // ignore: cast_nullable_to_non_nullable
-              as Days,
-      time: time == freezed
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as String,
-      displayName: displayName == freezed
-          ? _value.displayName
-          : displayName // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_StableWork implements _StableWork {
-  _$_StableWork(
-      {required this.day, required this.time, required this.displayName});
-
-  factory _$_StableWork.fromJson(Map<String, dynamic> json) =>
-      _$$_StableWorkFromJson(json);
-
-  @override
-  final Days day;
-  @override
-  final String time;
-  @override
-  final String displayName;
-
-  @override
-  String toString() {
-    return 'StableWork(day: $day, time: $time, displayName: $displayName)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _StableWork &&
-            const DeepCollectionEquality().equals(other.day, day) &&
-            const DeepCollectionEquality().equals(other.time, time) &&
-            const DeepCollectionEquality()
-                .equals(other.displayName, displayName));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(day),
-      const DeepCollectionEquality().hash(time),
-      const DeepCollectionEquality().hash(displayName));
-
-  @JsonKey(ignore: true)
-  @override
-  _$StableWorkCopyWith<_StableWork> get copyWith =>
-      __$StableWorkCopyWithImpl<_StableWork>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_StableWorkToJson(this);
-  }
-}
-
-abstract class _StableWork implements StableWork {
-  factory _StableWork(
-      {required Days day,
-      required String time,
-      required String displayName}) = _$_StableWork;
-
-  factory _StableWork.fromJson(Map<String, dynamic> json) =
-      _$_StableWork.fromJson;
-
-  @override
-  Days get day;
-  @override
-  String get time;
-  @override
-  String get displayName;
-  @override
-  @JsonKey(ignore: true)
-  _$StableWorkCopyWith<_StableWork> get copyWith =>
-      throw _privateConstructorUsedError;
 }

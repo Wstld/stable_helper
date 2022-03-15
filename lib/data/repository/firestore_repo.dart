@@ -1,14 +1,40 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:stable_helper/core/constants/enums.dart';
 import 'package:stable_helper/data/models/models.dart';
 
 class FirestoreRepo {
-  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  FirestoreRepo(this.firebaseFirestore)
+      : userData =
+            firebaseFirestore.collection(FirebaseCollections.users.getName),
+        stables =
+            firebaseFirestore.collection(FirebaseCollections.stables.getName);
+
+  FirebaseFirestore firebaseFirestore;
+  CollectionReference stables;
+  CollectionReference userData;
 
   Stream<DocumentSnapshot> getUserDataStream(String userId) {
-    CollectionReference userData =
-        firebaseFirestore.collection(FirebaseCollections.users.getName);
     return userData.doc(userId).snapshots();
+  }
+
+  Stream<DocumentSnapshot> getStablesStream(String stablesId) {
+    return stables.doc(stablesId).snapshots();
+  }
+
+  Future<User> fetchUserData(String userId) async {
+    try {
+      DocumentSnapshot response = await userData.doc(userId).get();
+      if (response.data() != null) {
+        return User.fromJson(response.data() as Map<String, dynamic>);
+      } else {
+        throw Exception('no such user');
+      }
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
   }
 
   void addData() {

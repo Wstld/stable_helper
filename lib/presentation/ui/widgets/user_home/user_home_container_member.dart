@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:intl/intl.dart';
-import 'package:stable_helper/core/constants/enums.dart';
 import 'package:stable_helper/core/theme/themes.dart';
-import 'package:stable_helper/data/models/models.dart';
+import 'package:stable_helper/presentation/controller/home_root_controller.dart';
 import 'package:stable_helper/presentation/ui/widgets/carousel_with_indicator.dart';
 
-class UserHomeContainer extends StatelessWidget {
-  const UserHomeContainer({Key? key}) : super(key: key);
+class UserHomeContainerMember extends GetWidget<HomeRootController> {
+  const UserHomeContainerMember({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final DateFormat format = DateFormat('EEEE d MMMM');
     String dateString = format.format(DateTime.now());
-
-    List<StableWork> list = [
-      StableWork(day: Days.monday, time: '13.00', displayName: 'insläpp'),
-      StableWork(day: Days.monday, time: '13.00', displayName: 'utsläpp'),
-      StableWork(day: Days.monday, time: '13.00', displayName: 'hö'),
-    ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,7 +22,7 @@ class UserHomeContainer extends StatelessWidget {
         ),
         verticalSpaceLarge,
         CarouselWithIndicator(
-          list: list,
+          list: controller.schedule,
         ),
       ],
     );

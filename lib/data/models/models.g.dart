@@ -147,27 +147,3 @@ Map<String, dynamic> _$$FeedingToJson(_$Feeding instance) => <String, dynamic>{
       'assingneeId': instance.assingneeId,
       'type': instance.$type,
     };
-
-_$_StableWork _$$_StableWorkFromJson(Map<String, dynamic> json) =>
-    _$_StableWork(
-      day: $enumDecode(_$DaysEnumMap, json['day']),
-      time: json['time'] as String,
-      displayName: json['displayName'] as String,
-    );
-
-Map<String, dynamic> _$$_StableWorkToJson(_$_StableWork instance) =>
-    <String, dynamic>{
-      'day': _$DaysEnumMap[instance.day],
-      'time': instance.time,
-      'displayName': instance.displayName,
-    };
-
-const _$DaysEnumMap = {
-  Days.monday: 'monday',
-  Days.tuesday: 'tuesday',
-  Days.wednesday: 'wednesday',
-  Days.thursday: 'thursday',
-  Days.friday: 'friday',
-  Days.saturday: 'saturday',
-  Days.sunday: 'sunday',
-};
