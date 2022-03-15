@@ -4,7 +4,7 @@ import 'package:stable_helper/core/constants/constants.dart';
 import 'package:stable_helper/core/theme/themes.dart';
 import 'package:stable_helper/presentation/controller/controllers.dart';
 import 'package:stable_helper/presentation/controller/home_root_controller.dart';
-import 'package:stable_helper/presentation/ui/widgets/user_home/user_home_container_member.dart';
+import 'package:stable_helper/presentation/ui/ui.dart';
 
 class HomeRootPage extends GetView {
   const HomeRootPage({Key? key}) : super(key: key);
@@ -35,7 +35,9 @@ class HomeRootPage extends GetView {
           child: GetBuilder<HomeRootController>(
             init: HomeRootController(Get.find(), Get.find()),
             builder: (controller) => controller.obx(
-              (userData) => const UserHomeContainer(),
+              (userData) => userData!.stablesId == null
+                  ? const UserHomeContainerNonMember()
+                  : const UserHomeContainerMember(),
               onEmpty: const Text('Show on boarding'),
             ),
           ),
