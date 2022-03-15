@@ -4,7 +4,7 @@ import 'package:stable_helper/core/constants/constants.dart';
 import 'package:stable_helper/core/theme/themes.dart';
 import 'package:stable_helper/presentation/controller/controllers.dart';
 import 'package:stable_helper/presentation/controller/home_root_controller.dart';
-import 'package:stable_helper/presentation/ui/widgets/user_home_container.dart';
+import 'package:stable_helper/presentation/ui/widgets/user_home/user_home_container_member.dart';
 
 class HomeRootPage extends GetView {
   const HomeRootPage({Key? key}) : super(key: key);

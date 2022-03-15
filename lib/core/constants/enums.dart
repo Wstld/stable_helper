@@ -2,9 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 enum LoginFormType { register, login }
 
-enum FirebaseCollections {
-  userData,
-}
+enum FirebaseCollections { users, stables }
 
 enum Days {
   @JsonValue('monday')
@@ -30,11 +28,19 @@ enum UserType {
   owner,
 }
 
+enum StableChoreTypes {
+  turnout,
+  stableing,
+  feeding,
+}
+
 extension FirebaseCollectionExtensions on FirebaseCollections {
   String get getName {
     switch (this) {
-      case FirebaseCollections.userData:
-        return 'user_data';
+      case FirebaseCollections.users:
+        return 'users';
+      case FirebaseCollections.stables:
+        return 'stables';
     }
   }
 }
