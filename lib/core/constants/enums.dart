@@ -1,8 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 
-enum LoginFormType { register, login }
+enum LoginFormType {
+  register,
+  login,
+}
 
-enum FirebaseCollections { users, stables }
+enum FirebaseCollections {
+  users,
+  stables,
+}
 
 enum Days {
   @JsonValue('monday')
@@ -32,6 +38,42 @@ enum StableChoreTypes {
   turnout,
   stableing,
   feeding,
+}
+
+enum HorseProtectionSetup {
+  @JsonValue('none')
+  none,
+  @JsonValue('back')
+  back,
+  @JsonValue('front')
+  front,
+  @JsonValue('both')
+  both,
+}
+enum HorseCoverSetup {
+  @JsonValue('none')
+  none,
+  @JsonValue('summer')
+  summer,
+  @JsonValue('winter')
+  winter,
+}
+
+enum HorseConcentrateFeed {
+  @JsonValue('none')
+  none,
+  @JsonValue('morning')
+  morning,
+  @JsonValue('afternoon')
+  afternoon,
+  @JsonValue('evening')
+  evening,
+  @JsonValue('night')
+  night,
+}
+enum HorsePosition {
+  inside,
+  outside,
 }
 
 extension FirebaseCollectionExtensions on FirebaseCollections {

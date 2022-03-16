@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:stable_helper/core/constants/nav_consts.dart';
-import 'package:stable_helper/core/routes/middleware/login_middleware.dart';
 import 'package:stable_helper/presentation/ui/pages/pages.dart';
 
 class AppPages {
@@ -17,6 +16,10 @@ class AppPages {
     GetPage(
       name: Pages.home.routeName,
       page: () => const HomeRootPage(),
+    ),
+    GetPage(
+      name: Pages.addHorse.routeName,
+      page: () => AddHorsePage(),
     )
   ];
 }

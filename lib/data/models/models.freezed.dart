@@ -30,7 +30,7 @@ class _$UserTearOff {
       String? phoneNumber,
       String? email,
       String? stablesId,
-      List<Horse>? horses}) {
+      Map<String, Horse>? horses}) {
     return _User(
       type: type,
       userId: userId,
@@ -60,7 +60,7 @@ mixin _$User {
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get stablesId => throw _privateConstructorUsedError;
-  List<Horse>? get horses => throw _privateConstructorUsedError;
+  Map<String, Horse>? get horses => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -79,7 +79,7 @@ abstract class $UserCopyWith<$Res> {
       String? phoneNumber,
       String? email,
       String? stablesId,
-      List<Horse>? horses});
+      Map<String, Horse>? horses});
 }
 
 /// @nodoc
@@ -133,7 +133,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
       horses: horses == freezed
           ? _value.horses
           : horses // ignore: cast_nullable_to_non_nullable
-              as List<Horse>?,
+              as Map<String, Horse>?,
     ));
   }
 }
@@ -151,7 +151,7 @@ abstract class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? phoneNumber,
       String? email,
       String? stablesId,
-      List<Horse>? horses});
+      Map<String, Horse>? horses});
 }
 
 /// @nodoc
@@ -206,7 +206,7 @@ class __$UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
       horses: horses == freezed
           ? _value.horses
           : horses // ignore: cast_nullable_to_non_nullable
-              as List<Horse>?,
+              as Map<String, Horse>?,
     ));
   }
 }
@@ -241,7 +241,7 @@ class _$_User implements _User {
   @override
   final String? stablesId;
   @override
-  final List<Horse>? horses;
+  final Map<String, Horse>? horses;
 
   @override
   String toString() {
@@ -296,7 +296,7 @@ abstract class _User implements User {
       String? phoneNumber,
       String? email,
       String? stablesId,
-      List<Horse>? horses}) = _$_User;
+      Map<String, Horse>? horses}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -315,7 +315,7 @@ abstract class _User implements User {
   @override
   String? get stablesId;
   @override
-  List<Horse>? get horses;
+  Map<String, Horse>? get horses;
   @override
   @JsonKey(ignore: true)
   _$UserCopyWith<_User> get copyWith => throw _privateConstructorUsedError;
@@ -331,14 +331,16 @@ class _$HorseTearOff {
 
   _Horse call(
       {required String id,
-      required String name,
       required String ownerId,
-      List<String>? extraRiders}) {
+      required String name,
+      required List<String>? extraRiders,
+      required HorseConfiguration horseSetup}) {
     return _Horse(
       id: id,
-      name: name,
       ownerId: ownerId,
+      name: name,
       extraRiders: extraRiders,
+      horseSetup: horseSetup,
     );
   }
 
@@ -353,9 +355,10 @@ const $Horse = _$HorseTearOff();
 /// @nodoc
 mixin _$Horse {
   String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
   String get ownerId => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   List<String>? get extraRiders => throw _privateConstructorUsedError;
+  HorseConfiguration get horseSetup => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -367,7 +370,13 @@ abstract class $HorseCopyWith<$Res> {
   factory $HorseCopyWith(Horse value, $Res Function(Horse) then) =
       _$HorseCopyWithImpl<$Res>;
   $Res call(
-      {String id, String name, String ownerId, List<String>? extraRiders});
+      {String id,
+      String ownerId,
+      String name,
+      List<String>? extraRiders,
+      HorseConfiguration horseSetup});
+
+  $HorseConfigurationCopyWith<$Res> get horseSetup;
 }
 
 /// @nodoc
@@ -381,28 +390,40 @@ class _$HorseCopyWithImpl<$Res> implements $HorseCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
     Object? ownerId = freezed,
+    Object? name = freezed,
     Object? extraRiders = freezed,
+    Object? horseSetup = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       ownerId: ownerId == freezed
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       extraRiders: extraRiders == freezed
           ? _value.extraRiders
           : extraRiders // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      horseSetup: horseSetup == freezed
+          ? _value.horseSetup
+          : horseSetup // ignore: cast_nullable_to_non_nullable
+              as HorseConfiguration,
     ));
+  }
+
+  @override
+  $HorseConfigurationCopyWith<$Res> get horseSetup {
+    return $HorseConfigurationCopyWith<$Res>(_value.horseSetup, (value) {
+      return _then(_value.copyWith(horseSetup: value));
+    });
   }
 }
 
@@ -412,7 +433,14 @@ abstract class _$HorseCopyWith<$Res> implements $HorseCopyWith<$Res> {
       __$HorseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id, String name, String ownerId, List<String>? extraRiders});
+      {String id,
+      String ownerId,
+      String name,
+      List<String>? extraRiders,
+      HorseConfiguration horseSetup});
+
+  @override
+  $HorseConfigurationCopyWith<$Res> get horseSetup;
 }
 
 /// @nodoc
@@ -427,27 +455,32 @@ class __$HorseCopyWithImpl<$Res> extends _$HorseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
     Object? ownerId = freezed,
+    Object? name = freezed,
     Object? extraRiders = freezed,
+    Object? horseSetup = freezed,
   }) {
     return _then(_Horse(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
       ownerId: ownerId == freezed
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       extraRiders: extraRiders == freezed
           ? _value.extraRiders
           : extraRiders // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      horseSetup: horseSetup == freezed
+          ? _value.horseSetup
+          : horseSetup // ignore: cast_nullable_to_non_nullable
+              as HorseConfiguration,
     ));
   }
 }
@@ -457,9 +490,10 @@ class __$HorseCopyWithImpl<$Res> extends _$HorseCopyWithImpl<$Res>
 class _$_Horse implements _Horse {
   _$_Horse(
       {required this.id,
-      required this.name,
       required this.ownerId,
-      this.extraRiders});
+      required this.name,
+      required this.extraRiders,
+      required this.horseSetup});
 
   factory _$_Horse.fromJson(Map<String, dynamic> json) =>
       _$$_HorseFromJson(json);
@@ -467,15 +501,17 @@ class _$_Horse implements _Horse {
   @override
   final String id;
   @override
-  final String name;
-  @override
   final String ownerId;
   @override
+  final String name;
+  @override
   final List<String>? extraRiders;
+  @override
+  final HorseConfiguration horseSetup;
 
   @override
   String toString() {
-    return 'Horse(id: $id, name: $name, ownerId: $ownerId, extraRiders: $extraRiders)';
+    return 'Horse(id: $id, ownerId: $ownerId, name: $name, extraRiders: $extraRiders, horseSetup: $horseSetup)';
   }
 
   @override
@@ -484,19 +520,22 @@ class _$_Horse implements _Horse {
         (other.runtimeType == runtimeType &&
             other is _Horse &&
             const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.ownerId, ownerId) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
-                .equals(other.extraRiders, extraRiders));
+                .equals(other.extraRiders, extraRiders) &&
+            const DeepCollectionEquality()
+                .equals(other.horseSetup, horseSetup));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(ownerId),
-      const DeepCollectionEquality().hash(extraRiders));
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(extraRiders),
+      const DeepCollectionEquality().hash(horseSetup));
 
   @JsonKey(ignore: true)
   @override
@@ -512,23 +551,742 @@ class _$_Horse implements _Horse {
 abstract class _Horse implements Horse {
   factory _Horse(
       {required String id,
-      required String name,
       required String ownerId,
-      List<String>? extraRiders}) = _$_Horse;
+      required String name,
+      required List<String>? extraRiders,
+      required HorseConfiguration horseSetup}) = _$_Horse;
 
   factory _Horse.fromJson(Map<String, dynamic> json) = _$_Horse.fromJson;
 
   @override
   String get id;
   @override
-  String get name;
-  @override
   String get ownerId;
+  @override
+  String get name;
   @override
   List<String>? get extraRiders;
   @override
+  HorseConfiguration get horseSetup;
+  @override
   @JsonKey(ignore: true)
   _$HorseCopyWith<_Horse> get copyWith => throw _privateConstructorUsedError;
+}
+
+HorseConfiguration _$HorseConfigurationFromJson(Map<String, dynamic> json) {
+  return _HorseConfiguration.fromJson(json);
+}
+
+/// @nodoc
+class _$HorseConfigurationTearOff {
+  const _$HorseConfigurationTearOff();
+
+  _HorseConfiguration call(
+      {required HorseSetup insideSetup,
+      required HorseSetup outsideSetup,
+      HorseConcentrateFeed? concentrates}) {
+    return _HorseConfiguration(
+      insideSetup: insideSetup,
+      outsideSetup: outsideSetup,
+      concentrates: concentrates,
+    );
+  }
+
+  HorseConfiguration fromJson(Map<String, Object?> json) {
+    return HorseConfiguration.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $HorseConfiguration = _$HorseConfigurationTearOff();
+
+/// @nodoc
+mixin _$HorseConfiguration {
+  HorseSetup get insideSetup => throw _privateConstructorUsedError;
+  HorseSetup get outsideSetup => throw _privateConstructorUsedError;
+  HorseConcentrateFeed? get concentrates => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $HorseConfigurationCopyWith<HorseConfiguration> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $HorseConfigurationCopyWith<$Res> {
+  factory $HorseConfigurationCopyWith(
+          HorseConfiguration value, $Res Function(HorseConfiguration) then) =
+      _$HorseConfigurationCopyWithImpl<$Res>;
+  $Res call(
+      {HorseSetup insideSetup,
+      HorseSetup outsideSetup,
+      HorseConcentrateFeed? concentrates});
+
+  $HorseSetupCopyWith<$Res> get insideSetup;
+  $HorseSetupCopyWith<$Res> get outsideSetup;
+}
+
+/// @nodoc
+class _$HorseConfigurationCopyWithImpl<$Res>
+    implements $HorseConfigurationCopyWith<$Res> {
+  _$HorseConfigurationCopyWithImpl(this._value, this._then);
+
+  final HorseConfiguration _value;
+  // ignore: unused_field
+  final $Res Function(HorseConfiguration) _then;
+
+  @override
+  $Res call({
+    Object? insideSetup = freezed,
+    Object? outsideSetup = freezed,
+    Object? concentrates = freezed,
+  }) {
+    return _then(_value.copyWith(
+      insideSetup: insideSetup == freezed
+          ? _value.insideSetup
+          : insideSetup // ignore: cast_nullable_to_non_nullable
+              as HorseSetup,
+      outsideSetup: outsideSetup == freezed
+          ? _value.outsideSetup
+          : outsideSetup // ignore: cast_nullable_to_non_nullable
+              as HorseSetup,
+      concentrates: concentrates == freezed
+          ? _value.concentrates
+          : concentrates // ignore: cast_nullable_to_non_nullable
+              as HorseConcentrateFeed?,
+    ));
+  }
+
+  @override
+  $HorseSetupCopyWith<$Res> get insideSetup {
+    return $HorseSetupCopyWith<$Res>(_value.insideSetup, (value) {
+      return _then(_value.copyWith(insideSetup: value));
+    });
+  }
+
+  @override
+  $HorseSetupCopyWith<$Res> get outsideSetup {
+    return $HorseSetupCopyWith<$Res>(_value.outsideSetup, (value) {
+      return _then(_value.copyWith(outsideSetup: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$HorseConfigurationCopyWith<$Res>
+    implements $HorseConfigurationCopyWith<$Res> {
+  factory _$HorseConfigurationCopyWith(
+          _HorseConfiguration value, $Res Function(_HorseConfiguration) then) =
+      __$HorseConfigurationCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {HorseSetup insideSetup,
+      HorseSetup outsideSetup,
+      HorseConcentrateFeed? concentrates});
+
+  @override
+  $HorseSetupCopyWith<$Res> get insideSetup;
+  @override
+  $HorseSetupCopyWith<$Res> get outsideSetup;
+}
+
+/// @nodoc
+class __$HorseConfigurationCopyWithImpl<$Res>
+    extends _$HorseConfigurationCopyWithImpl<$Res>
+    implements _$HorseConfigurationCopyWith<$Res> {
+  __$HorseConfigurationCopyWithImpl(
+      _HorseConfiguration _value, $Res Function(_HorseConfiguration) _then)
+      : super(_value, (v) => _then(v as _HorseConfiguration));
+
+  @override
+  _HorseConfiguration get _value => super._value as _HorseConfiguration;
+
+  @override
+  $Res call({
+    Object? insideSetup = freezed,
+    Object? outsideSetup = freezed,
+    Object? concentrates = freezed,
+  }) {
+    return _then(_HorseConfiguration(
+      insideSetup: insideSetup == freezed
+          ? _value.insideSetup
+          : insideSetup // ignore: cast_nullable_to_non_nullable
+              as HorseSetup,
+      outsideSetup: outsideSetup == freezed
+          ? _value.outsideSetup
+          : outsideSetup // ignore: cast_nullable_to_non_nullable
+              as HorseSetup,
+      concentrates: concentrates == freezed
+          ? _value.concentrates
+          : concentrates // ignore: cast_nullable_to_non_nullable
+              as HorseConcentrateFeed?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_HorseConfiguration implements _HorseConfiguration {
+  _$_HorseConfiguration(
+      {required this.insideSetup,
+      required this.outsideSetup,
+      this.concentrates});
+
+  factory _$_HorseConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$$_HorseConfigurationFromJson(json);
+
+  @override
+  final HorseSetup insideSetup;
+  @override
+  final HorseSetup outsideSetup;
+  @override
+  final HorseConcentrateFeed? concentrates;
+
+  @override
+  String toString() {
+    return 'HorseConfiguration(insideSetup: $insideSetup, outsideSetup: $outsideSetup, concentrates: $concentrates)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _HorseConfiguration &&
+            const DeepCollectionEquality()
+                .equals(other.insideSetup, insideSetup) &&
+            const DeepCollectionEquality()
+                .equals(other.outsideSetup, outsideSetup) &&
+            const DeepCollectionEquality()
+                .equals(other.concentrates, concentrates));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(insideSetup),
+      const DeepCollectionEquality().hash(outsideSetup),
+      const DeepCollectionEquality().hash(concentrates));
+
+  @JsonKey(ignore: true)
+  @override
+  _$HorseConfigurationCopyWith<_HorseConfiguration> get copyWith =>
+      __$HorseConfigurationCopyWithImpl<_HorseConfiguration>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_HorseConfigurationToJson(this);
+  }
+}
+
+abstract class _HorseConfiguration implements HorseConfiguration {
+  factory _HorseConfiguration(
+      {required HorseSetup insideSetup,
+      required HorseSetup outsideSetup,
+      HorseConcentrateFeed? concentrates}) = _$_HorseConfiguration;
+
+  factory _HorseConfiguration.fromJson(Map<String, dynamic> json) =
+      _$_HorseConfiguration.fromJson;
+
+  @override
+  HorseSetup get insideSetup;
+  @override
+  HorseSetup get outsideSetup;
+  @override
+  HorseConcentrateFeed? get concentrates;
+  @override
+  @JsonKey(ignore: true)
+  _$HorseConfigurationCopyWith<_HorseConfiguration> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+HorseSetup _$HorseSetupFromJson(Map<String, dynamic> json) {
+  switch (json['type']) {
+    case 'inside':
+      return InsideHorseSetup.fromJson(json);
+    case 'outside':
+      return OutSideHorseSetup.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(
+          json, 'type', 'HorseSetup', 'Invalid union type "${json['type']}"!');
+  }
+}
+
+/// @nodoc
+class _$HorseSetupTearOff {
+  const _$HorseSetupTearOff();
+
+  InsideHorseSetup inside(
+      {required HorseCoverSetup cover,
+      required HorseProtectionSetup protection}) {
+    return InsideHorseSetup(
+      cover: cover,
+      protection: protection,
+    );
+  }
+
+  OutSideHorseSetup outside(
+      {required HorseCoverSetup cover,
+      required HorseProtectionSetup protection}) {
+    return OutSideHorseSetup(
+      cover: cover,
+      protection: protection,
+    );
+  }
+
+  HorseSetup fromJson(Map<String, Object?> json) {
+    return HorseSetup.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $HorseSetup = _$HorseSetupTearOff();
+
+/// @nodoc
+mixin _$HorseSetup {
+  HorseCoverSetup get cover => throw _privateConstructorUsedError;
+  HorseProtectionSetup get protection => throw _privateConstructorUsedError;
+
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            HorseCoverSetup cover, HorseProtectionSetup protection)
+        inside,
+    required TResult Function(
+            HorseCoverSetup cover, HorseProtectionSetup protection)
+        outside,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(HorseCoverSetup cover, HorseProtectionSetup protection)?
+        inside,
+    TResult Function(HorseCoverSetup cover, HorseProtectionSetup protection)?
+        outside,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(HorseCoverSetup cover, HorseProtectionSetup protection)?
+        inside,
+    TResult Function(HorseCoverSetup cover, HorseProtectionSetup protection)?
+        outside,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InsideHorseSetup value) inside,
+    required TResult Function(OutSideHorseSetup value) outside,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(InsideHorseSetup value)? inside,
+    TResult Function(OutSideHorseSetup value)? outside,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InsideHorseSetup value)? inside,
+    TResult Function(OutSideHorseSetup value)? outside,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $HorseSetupCopyWith<HorseSetup> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $HorseSetupCopyWith<$Res> {
+  factory $HorseSetupCopyWith(
+          HorseSetup value, $Res Function(HorseSetup) then) =
+      _$HorseSetupCopyWithImpl<$Res>;
+  $Res call({HorseCoverSetup cover, HorseProtectionSetup protection});
+}
+
+/// @nodoc
+class _$HorseSetupCopyWithImpl<$Res> implements $HorseSetupCopyWith<$Res> {
+  _$HorseSetupCopyWithImpl(this._value, this._then);
+
+  final HorseSetup _value;
+  // ignore: unused_field
+  final $Res Function(HorseSetup) _then;
+
+  @override
+  $Res call({
+    Object? cover = freezed,
+    Object? protection = freezed,
+  }) {
+    return _then(_value.copyWith(
+      cover: cover == freezed
+          ? _value.cover
+          : cover // ignore: cast_nullable_to_non_nullable
+              as HorseCoverSetup,
+      protection: protection == freezed
+          ? _value.protection
+          : protection // ignore: cast_nullable_to_non_nullable
+              as HorseProtectionSetup,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class $InsideHorseSetupCopyWith<$Res>
+    implements $HorseSetupCopyWith<$Res> {
+  factory $InsideHorseSetupCopyWith(
+          InsideHorseSetup value, $Res Function(InsideHorseSetup) then) =
+      _$InsideHorseSetupCopyWithImpl<$Res>;
+  @override
+  $Res call({HorseCoverSetup cover, HorseProtectionSetup protection});
+}
+
+/// @nodoc
+class _$InsideHorseSetupCopyWithImpl<$Res>
+    extends _$HorseSetupCopyWithImpl<$Res>
+    implements $InsideHorseSetupCopyWith<$Res> {
+  _$InsideHorseSetupCopyWithImpl(
+      InsideHorseSetup _value, $Res Function(InsideHorseSetup) _then)
+      : super(_value, (v) => _then(v as InsideHorseSetup));
+
+  @override
+  InsideHorseSetup get _value => super._value as InsideHorseSetup;
+
+  @override
+  $Res call({
+    Object? cover = freezed,
+    Object? protection = freezed,
+  }) {
+    return _then(InsideHorseSetup(
+      cover: cover == freezed
+          ? _value.cover
+          : cover // ignore: cast_nullable_to_non_nullable
+              as HorseCoverSetup,
+      protection: protection == freezed
+          ? _value.protection
+          : protection // ignore: cast_nullable_to_non_nullable
+              as HorseProtectionSetup,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+@FreezedUnionValue('inside')
+class _$InsideHorseSetup implements InsideHorseSetup {
+  const _$InsideHorseSetup(
+      {required this.cover, required this.protection, String? $type})
+      : $type = $type ?? 'inside';
+
+  factory _$InsideHorseSetup.fromJson(Map<String, dynamic> json) =>
+      _$$InsideHorseSetupFromJson(json);
+
+  @override
+  final HorseCoverSetup cover;
+  @override
+  final HorseProtectionSetup protection;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'HorseSetup.inside(cover: $cover, protection: $protection)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is InsideHorseSetup &&
+            const DeepCollectionEquality().equals(other.cover, cover) &&
+            const DeepCollectionEquality()
+                .equals(other.protection, protection));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(cover),
+      const DeepCollectionEquality().hash(protection));
+
+  @JsonKey(ignore: true)
+  @override
+  $InsideHorseSetupCopyWith<InsideHorseSetup> get copyWith =>
+      _$InsideHorseSetupCopyWithImpl<InsideHorseSetup>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            HorseCoverSetup cover, HorseProtectionSetup protection)
+        inside,
+    required TResult Function(
+            HorseCoverSetup cover, HorseProtectionSetup protection)
+        outside,
+  }) {
+    return inside(cover, protection);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(HorseCoverSetup cover, HorseProtectionSetup protection)?
+        inside,
+    TResult Function(HorseCoverSetup cover, HorseProtectionSetup protection)?
+        outside,
+  }) {
+    return inside?.call(cover, protection);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(HorseCoverSetup cover, HorseProtectionSetup protection)?
+        inside,
+    TResult Function(HorseCoverSetup cover, HorseProtectionSetup protection)?
+        outside,
+    required TResult orElse(),
+  }) {
+    if (inside != null) {
+      return inside(cover, protection);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InsideHorseSetup value) inside,
+    required TResult Function(OutSideHorseSetup value) outside,
+  }) {
+    return inside(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(InsideHorseSetup value)? inside,
+    TResult Function(OutSideHorseSetup value)? outside,
+  }) {
+    return inside?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InsideHorseSetup value)? inside,
+    TResult Function(OutSideHorseSetup value)? outside,
+    required TResult orElse(),
+  }) {
+    if (inside != null) {
+      return inside(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$InsideHorseSetupToJson(this);
+  }
+}
+
+abstract class InsideHorseSetup implements HorseSetup {
+  const factory InsideHorseSetup(
+      {required HorseCoverSetup cover,
+      required HorseProtectionSetup protection}) = _$InsideHorseSetup;
+
+  factory InsideHorseSetup.fromJson(Map<String, dynamic> json) =
+      _$InsideHorseSetup.fromJson;
+
+  @override
+  HorseCoverSetup get cover;
+  @override
+  HorseProtectionSetup get protection;
+  @override
+  @JsonKey(ignore: true)
+  $InsideHorseSetupCopyWith<InsideHorseSetup> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OutSideHorseSetupCopyWith<$Res>
+    implements $HorseSetupCopyWith<$Res> {
+  factory $OutSideHorseSetupCopyWith(
+          OutSideHorseSetup value, $Res Function(OutSideHorseSetup) then) =
+      _$OutSideHorseSetupCopyWithImpl<$Res>;
+  @override
+  $Res call({HorseCoverSetup cover, HorseProtectionSetup protection});
+}
+
+/// @nodoc
+class _$OutSideHorseSetupCopyWithImpl<$Res>
+    extends _$HorseSetupCopyWithImpl<$Res>
+    implements $OutSideHorseSetupCopyWith<$Res> {
+  _$OutSideHorseSetupCopyWithImpl(
+      OutSideHorseSetup _value, $Res Function(OutSideHorseSetup) _then)
+      : super(_value, (v) => _then(v as OutSideHorseSetup));
+
+  @override
+  OutSideHorseSetup get _value => super._value as OutSideHorseSetup;
+
+  @override
+  $Res call({
+    Object? cover = freezed,
+    Object? protection = freezed,
+  }) {
+    return _then(OutSideHorseSetup(
+      cover: cover == freezed
+          ? _value.cover
+          : cover // ignore: cast_nullable_to_non_nullable
+              as HorseCoverSetup,
+      protection: protection == freezed
+          ? _value.protection
+          : protection // ignore: cast_nullable_to_non_nullable
+              as HorseProtectionSetup,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+@FreezedUnionValue('outside')
+class _$OutSideHorseSetup implements OutSideHorseSetup {
+  const _$OutSideHorseSetup(
+      {required this.cover, required this.protection, String? $type})
+      : $type = $type ?? 'outside';
+
+  factory _$OutSideHorseSetup.fromJson(Map<String, dynamic> json) =>
+      _$$OutSideHorseSetupFromJson(json);
+
+  @override
+  final HorseCoverSetup cover;
+  @override
+  final HorseProtectionSetup protection;
+
+  @JsonKey(name: 'type')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'HorseSetup.outside(cover: $cover, protection: $protection)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is OutSideHorseSetup &&
+            const DeepCollectionEquality().equals(other.cover, cover) &&
+            const DeepCollectionEquality()
+                .equals(other.protection, protection));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(cover),
+      const DeepCollectionEquality().hash(protection));
+
+  @JsonKey(ignore: true)
+  @override
+  $OutSideHorseSetupCopyWith<OutSideHorseSetup> get copyWith =>
+      _$OutSideHorseSetupCopyWithImpl<OutSideHorseSetup>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            HorseCoverSetup cover, HorseProtectionSetup protection)
+        inside,
+    required TResult Function(
+            HorseCoverSetup cover, HorseProtectionSetup protection)
+        outside,
+  }) {
+    return outside(cover, protection);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(HorseCoverSetup cover, HorseProtectionSetup protection)?
+        inside,
+    TResult Function(HorseCoverSetup cover, HorseProtectionSetup protection)?
+        outside,
+  }) {
+    return outside?.call(cover, protection);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(HorseCoverSetup cover, HorseProtectionSetup protection)?
+        inside,
+    TResult Function(HorseCoverSetup cover, HorseProtectionSetup protection)?
+        outside,
+    required TResult orElse(),
+  }) {
+    if (outside != null) {
+      return outside(cover, protection);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InsideHorseSetup value) inside,
+    required TResult Function(OutSideHorseSetup value) outside,
+  }) {
+    return outside(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(InsideHorseSetup value)? inside,
+    TResult Function(OutSideHorseSetup value)? outside,
+  }) {
+    return outside?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InsideHorseSetup value)? inside,
+    TResult Function(OutSideHorseSetup value)? outside,
+    required TResult orElse(),
+  }) {
+    if (outside != null) {
+      return outside(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$OutSideHorseSetupToJson(this);
+  }
+}
+
+abstract class OutSideHorseSetup implements HorseSetup {
+  const factory OutSideHorseSetup(
+      {required HorseCoverSetup cover,
+      required HorseProtectionSetup protection}) = _$OutSideHorseSetup;
+
+  factory OutSideHorseSetup.fromJson(Map<String, dynamic> json) =
+      _$OutSideHorseSetup.fromJson;
+
+  @override
+  HorseCoverSetup get cover;
+  @override
+  HorseProtectionSetup get protection;
+  @override
+  @JsonKey(ignore: true)
+  $OutSideHorseSetupCopyWith<OutSideHorseSetup> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 Stables _$StablesFromJson(Map<String, dynamic> json) {

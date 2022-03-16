@@ -7,3 +7,10 @@ const String registerSubmitBtnTxt = 'Register';
 const String passwordHint = 'Password';
 const String emailHint = 'Email';
 const String backBtnTxt = 'Back';
+const String outSideDressInfoTxt =
+    'How would you like your horse dressed outside';
+const String inSideDressInfoTxt =
+    'How would you like your horse dressed inside';
+const String concentrateFoodInfoTxt = 'Takes concentrats';
+const String inputNameHint = 'Name';
+const String when = 'when?';
