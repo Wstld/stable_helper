@@ -14,9 +14,9 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       phoneNumber: json['phoneNumber'] as String?,
       email: json['email'] as String?,
       stablesId: json['stablesId'] as String?,
-      horses: (json['horses'] as List<dynamic>?)
-          ?.map((e) => Horse.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      horses: (json['horses'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, Horse.fromJson(e as Map<String, dynamic>)),
+      ),
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
@@ -27,7 +27,7 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'phoneNumber': instance.phoneNumber,
       'email': instance.email,
       'stablesId': instance.stablesId,
-      'horses': instance.horses?.map((e) => e.toJson()).toList(),
+      'horses': instance.horses?.map((k, e) => MapEntry(k, e.toJson())),
     };
 
 const _$UserTypeEnumMap = {
@@ -37,18 +37,91 @@ const _$UserTypeEnumMap = {
 
 _$_Horse _$$_HorseFromJson(Map<String, dynamic> json) => _$_Horse(
       id: json['id'] as String,
-      name: json['name'] as String,
       ownerId: json['ownerId'] as String,
+      name: json['name'] as String,
       extraRiders: (json['extraRiders'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      horseSetup: HorseConfiguration.fromJson(
+          json['horseSetup'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_HorseToJson(_$_Horse instance) => <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
       'ownerId': instance.ownerId,
+      'name': instance.name,
       'extraRiders': instance.extraRiders,
+      'horseSetup': instance.horseSetup.toJson(),
+    };
+
+_$_HorseConfiguration _$$_HorseConfigurationFromJson(
+        Map<String, dynamic> json) =>
+    _$_HorseConfiguration(
+      insideSetup:
+          HorseSetup.fromJson(json['insideSetup'] as Map<String, dynamic>),
+      outsideSetup:
+          HorseSetup.fromJson(json['outsideSetup'] as Map<String, dynamic>),
+      concentrates: $enumDecodeNullable(
+          _$HorseConcentrateFeedEnumMap, json['concentrates']),
+    );
+
+Map<String, dynamic> _$$_HorseConfigurationToJson(
+        _$_HorseConfiguration instance) =>
+    <String, dynamic>{
+      'insideSetup': instance.insideSetup.toJson(),
+      'outsideSetup': instance.outsideSetup.toJson(),
+      'concentrates': _$HorseConcentrateFeedEnumMap[instance.concentrates],
+    };
+
+const _$HorseConcentrateFeedEnumMap = {
+  HorseConcentrateFeed.none: 'none',
+  HorseConcentrateFeed.morning: 'morning',
+  HorseConcentrateFeed.afternoon: 'afternoon',
+  HorseConcentrateFeed.evening: 'evening',
+  HorseConcentrateFeed.night: 'night',
+};
+
+_$InsideHorseSetup _$$InsideHorseSetupFromJson(Map<String, dynamic> json) =>
+    _$InsideHorseSetup(
+      cover: $enumDecode(_$HorseCoverSetupEnumMap, json['cover']),
+      protection:
+          $enumDecode(_$HorseProtectionSetupEnumMap, json['protection']),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$InsideHorseSetupToJson(_$InsideHorseSetup instance) =>
+    <String, dynamic>{
+      'cover': _$HorseCoverSetupEnumMap[instance.cover],
+      'protection': _$HorseProtectionSetupEnumMap[instance.protection],
+      'type': instance.$type,
+    };
+
+const _$HorseCoverSetupEnumMap = {
+  HorseCoverSetup.none: 'none',
+  HorseCoverSetup.summer: 'summer',
+  HorseCoverSetup.winter: 'winter',
+};
+
+const _$HorseProtectionSetupEnumMap = {
+  HorseProtectionSetup.none: 'none',
+  HorseProtectionSetup.back: 'back',
+  HorseProtectionSetup.front: 'front',
+  HorseProtectionSetup.both: 'both',
+};
+
+_$OutSideHorseSetup _$$OutSideHorseSetupFromJson(Map<String, dynamic> json) =>
+    _$OutSideHorseSetup(
+      cover: $enumDecode(_$HorseCoverSetupEnumMap, json['cover']),
+      protection:
+          $enumDecode(_$HorseProtectionSetupEnumMap, json['protection']),
+      $type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$OutSideHorseSetupToJson(_$OutSideHorseSetup instance) =>
+    <String, dynamic>{
+      'cover': _$HorseCoverSetupEnumMap[instance.cover],
+      'protection': _$HorseProtectionSetupEnumMap[instance.protection],
+      'type': instance.$type,
     };
 
 _$_Stables _$$_StablesFromJson(Map<String, dynamic> json) => _$_Stables(

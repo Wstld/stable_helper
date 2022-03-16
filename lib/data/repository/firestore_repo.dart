@@ -37,6 +37,10 @@ class FirestoreRepo {
     }
   }
 
+  void saveHorse(Horse horse, String userId) {
+    userData.doc(userId).update({'horses.${horse.id}': horse.toJson()});
+  }
+
   void addData() {
     var doc = firebaseFirestore.collection('stables').doc().id;
     var normalDay = [

@@ -30,6 +30,7 @@ class CarouselWithIndicator extends StatelessWidget {
                     return Container(
                       color: Colors.blue,
                       width: 300,
+                      height: 100,
                       child: Column(
                         children: [
                           Text(list[itemIndex].displayName),
@@ -44,7 +45,7 @@ class CarouselWithIndicator extends StatelessWidget {
             },
             options: CarouselOptions(
                 enlargeCenterPage: true,
-                aspectRatio: 2.0,
+                aspectRatio: 3.0,
                 enlargeStrategy: CenterPageEnlargeStrategy.scale,
                 enableInfiniteScroll: false,
                 onPageChanged: ((index, reaseon) =>

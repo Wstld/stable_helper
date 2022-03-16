@@ -14,7 +14,7 @@ class User with _$User {
     String? phoneNumber,
     String? email,
     String? stablesId,
-    List<Horse>? horses,
+    Map<String, Horse>? horses,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -24,12 +24,48 @@ class User with _$User {
 class Horse with _$Horse {
   factory Horse({
     required String id,
-    required String name,
     required String ownerId,
-    List<String>? extraRiders,
+    required String name,
+    required List<String>? extraRiders,
+    required HorseConfiguration horseSetup,
   }) = _Horse;
 
   factory Horse.fromJson(Map<String, dynamic> json) => _$HorseFromJson(json);
+}
+
+@freezed
+class HorseConfiguration with _$HorseConfiguration {
+  factory HorseConfiguration({
+    required HorseSetup insideSetup,
+    required HorseSetup outsideSetup,
+    HorseConcentrateFeed? concentrates,
+  }) = _HorseConfiguration;
+
+  factory HorseConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$HorseConfigurationFromJson(json);
+}
+
+abstract class HorseSetupBase {
+  HorseProtectionSetup get protection;
+  set protection(HorseProtectionSetup setup);
+  HorseCoverSetup get cover;
+  set cover(HorseCoverSetup setup);
+}
+
+@Freezed(unionKey: 'type')
+@Implements<HorseSetupBase>()
+class HorseSetup with _$HorseSetup {
+  @FreezedUnionValue('inside')
+  const factory HorseSetup.inside(
+      {required HorseCoverSetup cover,
+      required HorseProtectionSetup protection}) = InsideHorseSetup;
+  @FreezedUnionValue('outside')
+  const factory HorseSetup.outside(
+      {required HorseCoverSetup cover,
+      required HorseProtectionSetup protection}) = OutSideHorseSetup;
+
+  factory HorseSetup.fromJson(Map<String, dynamic> json) =>
+      _$HorseSetupFromJson(json);
 }
 
 @freezed
