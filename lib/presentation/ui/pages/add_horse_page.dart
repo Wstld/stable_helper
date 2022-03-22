@@ -5,7 +5,7 @@ import 'package:stable_helper/core/constants/enums.dart';
 import 'package:stable_helper/core/theme/themes.dart';
 import 'package:stable_helper/presentation/controller/add_horse_controller.dart';
 import 'package:stable_helper/presentation/controller/controllers.dart';
-import 'package:stable_helper/presentation/ui/widgets/user_home/horse_setup_grid_tile.dart';
+import 'package:stable_helper/presentation/ui/widgets/user_home/add_horse_setup_grid_tile.dart';
 
 class AddHorsePage extends StatelessWidget {
   AddHorsePage({Key? key}) : super(key: key);
@@ -19,11 +19,11 @@ class AddHorsePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<HorseSetupGridTile> insideList =
+    List<AddHorseSetupGridTile> insideList =
         getSetupTileList(HorsePosition.inside);
-    List<HorseSetupGridTile> outsideList =
+    List<AddHorseSetupGridTile> outsideList =
         getSetupTileList(HorsePosition.outside);
-    List<HorseSetupGridTile> timeSlots = getTimeSlots();
+    List<AddHorseSetupGridTile> timeSlots = getTimeSlots();
 
     return SafeArea(
       child: Scaffold(
@@ -118,39 +118,39 @@ class AddHorsePage extends StatelessWidget {
     );
   }
 
-  List<HorseSetupGridTile> getSetupTileList(HorsePosition position) {
+  List<AddHorseSetupGridTile> getSetupTileList(HorsePosition position) {
     return [
-      HorseSetupGridTile(
+      AddHorseSetupGridTile(
         icon: Icons.horizontal_rule_sharp,
         title: 'back and front',
         position: position,
         protection: HorseProtectionSetup.both,
       ),
-      HorseSetupGridTile(
+      AddHorseSetupGridTile(
         icon: Icons.ac_unit_sharp,
         title: 'back',
         position: position,
         protection: HorseProtectionSetup.back,
       ),
-      HorseSetupGridTile(
+      AddHorseSetupGridTile(
         icon: Icons.ac_unit_sharp,
         title: 'front',
         position: position,
         protection: HorseProtectionSetup.front,
       ),
-      HorseSetupGridTile(
+      AddHorseSetupGridTile(
         icon: Icons.ac_unit_sharp,
         title: 'no cover',
         position: position,
         coverSetup: HorseCoverSetup.none,
       ),
-      HorseSetupGridTile(
+      AddHorseSetupGridTile(
         icon: Icons.ac_unit_sharp,
         title: 'summer cover',
         position: position,
         coverSetup: HorseCoverSetup.summer,
       ),
-      HorseSetupGridTile(
+      AddHorseSetupGridTile(
         icon: Icons.ac_unit_sharp,
         title: 'winter cover',
         position: position,
@@ -159,24 +159,24 @@ class AddHorsePage extends StatelessWidget {
     ];
   }
 
-  List<HorseSetupGridTile> getTimeSlots() {
+  List<AddHorseSetupGridTile> getTimeSlots() {
     return [
-      const HorseSetupGridTile(
+      const AddHorseSetupGridTile(
         icon: Icons.timer,
         title: 'morning',
         concentrateFeed: HorseConcentrateFeed.morning,
       ),
-      const HorseSetupGridTile(
+      const AddHorseSetupGridTile(
         icon: Icons.timer,
         title: 'afternoon',
         concentrateFeed: HorseConcentrateFeed.afternoon,
       ),
-      const HorseSetupGridTile(
+      const AddHorseSetupGridTile(
         icon: Icons.timer,
         title: 'evening',
         concentrateFeed: HorseConcentrateFeed.evening,
       ),
-      const HorseSetupGridTile(
+      const AddHorseSetupGridTile(
         icon: Icons.timer,
         title: 'nigth',
         concentrateFeed: HorseConcentrateFeed.night,

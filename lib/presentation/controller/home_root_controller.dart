@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:carousel_slider/carousel_controller.dart';
 import 'package:get/get.dart';
 import 'package:stable_helper/core/extensions/extentions.dart';
 import 'package:stable_helper/data/models/models.dart';
@@ -10,7 +11,10 @@ class HomeRootController extends GetxController with StateMixin<User> {
   final AuthRepo _authRepo;
   final FirestoreRepo _firestoreRepo;
   Rxn<User> userData = Rxn();
+  Rxn<Stables> stablesData = Rxn();
   RxList<StableChore> schedule = <StableChore>[].obs;
+  final CarouselController horseSetupcarouselController = CarouselController();
+  List<Horse> get horseList => userData.value?.horses?.values.toList() ?? [];
 
   HomeRootController(this._authRepo, this._firestoreRepo);
   @override
@@ -46,9 +50,10 @@ class HomeRootController extends GetxController with StateMixin<User> {
         _firestoreRepo.getStablesStream(event.stablesId!).listen((event) {
           if (event.exists) {
             if (event.data() != null) {
-              log('test');
               final Stables response =
                   Stables.fromJson(event.data() as Map<String, dynamic>);
+
+              stablesData.value = response;
               schedule.value =
                   response.schedule!.getTodaysSchedule(DateTime.now().getDay);
 

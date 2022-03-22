@@ -333,14 +333,18 @@ class _$HorseTearOff {
       {required String id,
       required String ownerId,
       required String name,
+      String? stablesId,
       required List<String>? extraRiders,
-      required HorseConfiguration horseSetup}) {
+      required HorseConfiguration horseSetup,
+      Map<String, TemporaryHorseSetup>? temporarySetup}) {
     return _Horse(
       id: id,
       ownerId: ownerId,
       name: name,
+      stablesId: stablesId,
       extraRiders: extraRiders,
       horseSetup: horseSetup,
+      temporarySetup: temporarySetup,
     );
   }
 
@@ -357,8 +361,11 @@ mixin _$Horse {
   String get id => throw _privateConstructorUsedError;
   String get ownerId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  String? get stablesId => throw _privateConstructorUsedError;
   List<String>? get extraRiders => throw _privateConstructorUsedError;
   HorseConfiguration get horseSetup => throw _privateConstructorUsedError;
+  Map<String, TemporaryHorseSetup>? get temporarySetup =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -373,8 +380,10 @@ abstract class $HorseCopyWith<$Res> {
       {String id,
       String ownerId,
       String name,
+      String? stablesId,
       List<String>? extraRiders,
-      HorseConfiguration horseSetup});
+      HorseConfiguration horseSetup,
+      Map<String, TemporaryHorseSetup>? temporarySetup});
 
   $HorseConfigurationCopyWith<$Res> get horseSetup;
 }
@@ -392,8 +401,10 @@ class _$HorseCopyWithImpl<$Res> implements $HorseCopyWith<$Res> {
     Object? id = freezed,
     Object? ownerId = freezed,
     Object? name = freezed,
+    Object? stablesId = freezed,
     Object? extraRiders = freezed,
     Object? horseSetup = freezed,
+    Object? temporarySetup = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -408,6 +419,10 @@ class _$HorseCopyWithImpl<$Res> implements $HorseCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      stablesId: stablesId == freezed
+          ? _value.stablesId
+          : stablesId // ignore: cast_nullable_to_non_nullable
+              as String?,
       extraRiders: extraRiders == freezed
           ? _value.extraRiders
           : extraRiders // ignore: cast_nullable_to_non_nullable
@@ -416,6 +431,10 @@ class _$HorseCopyWithImpl<$Res> implements $HorseCopyWith<$Res> {
           ? _value.horseSetup
           : horseSetup // ignore: cast_nullable_to_non_nullable
               as HorseConfiguration,
+      temporarySetup: temporarySetup == freezed
+          ? _value.temporarySetup
+          : temporarySetup // ignore: cast_nullable_to_non_nullable
+              as Map<String, TemporaryHorseSetup>?,
     ));
   }
 
@@ -436,8 +455,10 @@ abstract class _$HorseCopyWith<$Res> implements $HorseCopyWith<$Res> {
       {String id,
       String ownerId,
       String name,
+      String? stablesId,
       List<String>? extraRiders,
-      HorseConfiguration horseSetup});
+      HorseConfiguration horseSetup,
+      Map<String, TemporaryHorseSetup>? temporarySetup});
 
   @override
   $HorseConfigurationCopyWith<$Res> get horseSetup;
@@ -457,8 +478,10 @@ class __$HorseCopyWithImpl<$Res> extends _$HorseCopyWithImpl<$Res>
     Object? id = freezed,
     Object? ownerId = freezed,
     Object? name = freezed,
+    Object? stablesId = freezed,
     Object? extraRiders = freezed,
     Object? horseSetup = freezed,
+    Object? temporarySetup = freezed,
   }) {
     return _then(_Horse(
       id: id == freezed
@@ -473,6 +496,10 @@ class __$HorseCopyWithImpl<$Res> extends _$HorseCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      stablesId: stablesId == freezed
+          ? _value.stablesId
+          : stablesId // ignore: cast_nullable_to_non_nullable
+              as String?,
       extraRiders: extraRiders == freezed
           ? _value.extraRiders
           : extraRiders // ignore: cast_nullable_to_non_nullable
@@ -481,6 +508,10 @@ class __$HorseCopyWithImpl<$Res> extends _$HorseCopyWithImpl<$Res>
           ? _value.horseSetup
           : horseSetup // ignore: cast_nullable_to_non_nullable
               as HorseConfiguration,
+      temporarySetup: temporarySetup == freezed
+          ? _value.temporarySetup
+          : temporarySetup // ignore: cast_nullable_to_non_nullable
+              as Map<String, TemporaryHorseSetup>?,
     ));
   }
 }
@@ -492,8 +523,10 @@ class _$_Horse implements _Horse {
       {required this.id,
       required this.ownerId,
       required this.name,
+      this.stablesId,
       required this.extraRiders,
-      required this.horseSetup});
+      required this.horseSetup,
+      this.temporarySetup});
 
   factory _$_Horse.fromJson(Map<String, dynamic> json) =>
       _$$_HorseFromJson(json);
@@ -505,13 +538,17 @@ class _$_Horse implements _Horse {
   @override
   final String name;
   @override
+  final String? stablesId;
+  @override
   final List<String>? extraRiders;
   @override
   final HorseConfiguration horseSetup;
+  @override
+  final Map<String, TemporaryHorseSetup>? temporarySetup;
 
   @override
   String toString() {
-    return 'Horse(id: $id, ownerId: $ownerId, name: $name, extraRiders: $extraRiders, horseSetup: $horseSetup)';
+    return 'Horse(id: $id, ownerId: $ownerId, name: $name, stablesId: $stablesId, extraRiders: $extraRiders, horseSetup: $horseSetup, temporarySetup: $temporarySetup)';
   }
 
   @override
@@ -522,10 +559,13 @@ class _$_Horse implements _Horse {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.ownerId, ownerId) &&
             const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.stablesId, stablesId) &&
             const DeepCollectionEquality()
                 .equals(other.extraRiders, extraRiders) &&
             const DeepCollectionEquality()
-                .equals(other.horseSetup, horseSetup));
+                .equals(other.horseSetup, horseSetup) &&
+            const DeepCollectionEquality()
+                .equals(other.temporarySetup, temporarySetup));
   }
 
   @override
@@ -534,8 +574,10 @@ class _$_Horse implements _Horse {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(ownerId),
       const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(stablesId),
       const DeepCollectionEquality().hash(extraRiders),
-      const DeepCollectionEquality().hash(horseSetup));
+      const DeepCollectionEquality().hash(horseSetup),
+      const DeepCollectionEquality().hash(temporarySetup));
 
   @JsonKey(ignore: true)
   @override
@@ -553,8 +595,10 @@ abstract class _Horse implements Horse {
       {required String id,
       required String ownerId,
       required String name,
+      String? stablesId,
       required List<String>? extraRiders,
-      required HorseConfiguration horseSetup}) = _$_Horse;
+      required HorseConfiguration horseSetup,
+      Map<String, TemporaryHorseSetup>? temporarySetup}) = _$_Horse;
 
   factory _Horse.fromJson(Map<String, dynamic> json) = _$_Horse.fromJson;
 
@@ -565,12 +609,634 @@ abstract class _Horse implements Horse {
   @override
   String get name;
   @override
+  String? get stablesId;
+  @override
   List<String>? get extraRiders;
   @override
   HorseConfiguration get horseSetup;
   @override
+  Map<String, TemporaryHorseSetup>? get temporarySetup;
+  @override
   @JsonKey(ignore: true)
   _$HorseCopyWith<_Horse> get copyWith => throw _privateConstructorUsedError;
+}
+
+TemporaryHorseSetup _$TemporaryHorseSetupFromJson(Map<String, dynamic> json) {
+  return _TemporaryHorseSetup.fromJson(json);
+}
+
+/// @nodoc
+class _$TemporaryHorseSetupTearOff {
+  const _$TemporaryHorseSetupTearOff();
+
+  _TemporaryHorseSetup call(
+      {required DateTime timeStamp,
+      required HorseSetup? insideSetup,
+      required HorseSetup? outsideSetup,
+      bool feed = true,
+      bool keepInside = false,
+      bool noFood = false,
+      bool preformStabeling = true,
+      bool preformTurnOut = true}) {
+    return _TemporaryHorseSetup(
+      timeStamp: timeStamp,
+      insideSetup: insideSetup,
+      outsideSetup: outsideSetup,
+      feed: feed,
+      keepInside: keepInside,
+      noFood: noFood,
+      preformStabeling: preformStabeling,
+      preformTurnOut: preformTurnOut,
+    );
+  }
+
+  TemporaryHorseSetup fromJson(Map<String, Object?> json) {
+    return TemporaryHorseSetup.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $TemporaryHorseSetup = _$TemporaryHorseSetupTearOff();
+
+/// @nodoc
+mixin _$TemporaryHorseSetup {
+  DateTime get timeStamp => throw _privateConstructorUsedError;
+  HorseSetup? get insideSetup => throw _privateConstructorUsedError;
+  HorseSetup? get outsideSetup => throw _privateConstructorUsedError;
+  bool get feed => throw _privateConstructorUsedError;
+  bool get keepInside => throw _privateConstructorUsedError;
+  bool get noFood => throw _privateConstructorUsedError;
+  bool get preformStabeling => throw _privateConstructorUsedError;
+  bool get preformTurnOut => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $TemporaryHorseSetupCopyWith<TemporaryHorseSetup> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TemporaryHorseSetupCopyWith<$Res> {
+  factory $TemporaryHorseSetupCopyWith(
+          TemporaryHorseSetup value, $Res Function(TemporaryHorseSetup) then) =
+      _$TemporaryHorseSetupCopyWithImpl<$Res>;
+  $Res call(
+      {DateTime timeStamp,
+      HorseSetup? insideSetup,
+      HorseSetup? outsideSetup,
+      bool feed,
+      bool keepInside,
+      bool noFood,
+      bool preformStabeling,
+      bool preformTurnOut});
+
+  $HorseSetupCopyWith<$Res>? get insideSetup;
+  $HorseSetupCopyWith<$Res>? get outsideSetup;
+}
+
+/// @nodoc
+class _$TemporaryHorseSetupCopyWithImpl<$Res>
+    implements $TemporaryHorseSetupCopyWith<$Res> {
+  _$TemporaryHorseSetupCopyWithImpl(this._value, this._then);
+
+  final TemporaryHorseSetup _value;
+  // ignore: unused_field
+  final $Res Function(TemporaryHorseSetup) _then;
+
+  @override
+  $Res call({
+    Object? timeStamp = freezed,
+    Object? insideSetup = freezed,
+    Object? outsideSetup = freezed,
+    Object? feed = freezed,
+    Object? keepInside = freezed,
+    Object? noFood = freezed,
+    Object? preformStabeling = freezed,
+    Object? preformTurnOut = freezed,
+  }) {
+    return _then(_value.copyWith(
+      timeStamp: timeStamp == freezed
+          ? _value.timeStamp
+          : timeStamp // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      insideSetup: insideSetup == freezed
+          ? _value.insideSetup
+          : insideSetup // ignore: cast_nullable_to_non_nullable
+              as HorseSetup?,
+      outsideSetup: outsideSetup == freezed
+          ? _value.outsideSetup
+          : outsideSetup // ignore: cast_nullable_to_non_nullable
+              as HorseSetup?,
+      feed: feed == freezed
+          ? _value.feed
+          : feed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      keepInside: keepInside == freezed
+          ? _value.keepInside
+          : keepInside // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noFood: noFood == freezed
+          ? _value.noFood
+          : noFood // ignore: cast_nullable_to_non_nullable
+              as bool,
+      preformStabeling: preformStabeling == freezed
+          ? _value.preformStabeling
+          : preformStabeling // ignore: cast_nullable_to_non_nullable
+              as bool,
+      preformTurnOut: preformTurnOut == freezed
+          ? _value.preformTurnOut
+          : preformTurnOut // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+
+  @override
+  $HorseSetupCopyWith<$Res>? get insideSetup {
+    if (_value.insideSetup == null) {
+      return null;
+    }
+
+    return $HorseSetupCopyWith<$Res>(_value.insideSetup!, (value) {
+      return _then(_value.copyWith(insideSetup: value));
+    });
+  }
+
+  @override
+  $HorseSetupCopyWith<$Res>? get outsideSetup {
+    if (_value.outsideSetup == null) {
+      return null;
+    }
+
+    return $HorseSetupCopyWith<$Res>(_value.outsideSetup!, (value) {
+      return _then(_value.copyWith(outsideSetup: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$TemporaryHorseSetupCopyWith<$Res>
+    implements $TemporaryHorseSetupCopyWith<$Res> {
+  factory _$TemporaryHorseSetupCopyWith(_TemporaryHorseSetup value,
+          $Res Function(_TemporaryHorseSetup) then) =
+      __$TemporaryHorseSetupCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {DateTime timeStamp,
+      HorseSetup? insideSetup,
+      HorseSetup? outsideSetup,
+      bool feed,
+      bool keepInside,
+      bool noFood,
+      bool preformStabeling,
+      bool preformTurnOut});
+
+  @override
+  $HorseSetupCopyWith<$Res>? get insideSetup;
+  @override
+  $HorseSetupCopyWith<$Res>? get outsideSetup;
+}
+
+/// @nodoc
+class __$TemporaryHorseSetupCopyWithImpl<$Res>
+    extends _$TemporaryHorseSetupCopyWithImpl<$Res>
+    implements _$TemporaryHorseSetupCopyWith<$Res> {
+  __$TemporaryHorseSetupCopyWithImpl(
+      _TemporaryHorseSetup _value, $Res Function(_TemporaryHorseSetup) _then)
+      : super(_value, (v) => _then(v as _TemporaryHorseSetup));
+
+  @override
+  _TemporaryHorseSetup get _value => super._value as _TemporaryHorseSetup;
+
+  @override
+  $Res call({
+    Object? timeStamp = freezed,
+    Object? insideSetup = freezed,
+    Object? outsideSetup = freezed,
+    Object? feed = freezed,
+    Object? keepInside = freezed,
+    Object? noFood = freezed,
+    Object? preformStabeling = freezed,
+    Object? preformTurnOut = freezed,
+  }) {
+    return _then(_TemporaryHorseSetup(
+      timeStamp: timeStamp == freezed
+          ? _value.timeStamp
+          : timeStamp // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      insideSetup: insideSetup == freezed
+          ? _value.insideSetup
+          : insideSetup // ignore: cast_nullable_to_non_nullable
+              as HorseSetup?,
+      outsideSetup: outsideSetup == freezed
+          ? _value.outsideSetup
+          : outsideSetup // ignore: cast_nullable_to_non_nullable
+              as HorseSetup?,
+      feed: feed == freezed
+          ? _value.feed
+          : feed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      keepInside: keepInside == freezed
+          ? _value.keepInside
+          : keepInside // ignore: cast_nullable_to_non_nullable
+              as bool,
+      noFood: noFood == freezed
+          ? _value.noFood
+          : noFood // ignore: cast_nullable_to_non_nullable
+              as bool,
+      preformStabeling: preformStabeling == freezed
+          ? _value.preformStabeling
+          : preformStabeling // ignore: cast_nullable_to_non_nullable
+              as bool,
+      preformTurnOut: preformTurnOut == freezed
+          ? _value.preformTurnOut
+          : preformTurnOut // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_TemporaryHorseSetup implements _TemporaryHorseSetup {
+  _$_TemporaryHorseSetup(
+      {required this.timeStamp,
+      required this.insideSetup,
+      required this.outsideSetup,
+      this.feed = true,
+      this.keepInside = false,
+      this.noFood = false,
+      this.preformStabeling = true,
+      this.preformTurnOut = true});
+
+  factory _$_TemporaryHorseSetup.fromJson(Map<String, dynamic> json) =>
+      _$$_TemporaryHorseSetupFromJson(json);
+
+  @override
+  final DateTime timeStamp;
+  @override
+  final HorseSetup? insideSetup;
+  @override
+  final HorseSetup? outsideSetup;
+  @JsonKey()
+  @override
+  final bool feed;
+  @JsonKey()
+  @override
+  final bool keepInside;
+  @JsonKey()
+  @override
+  final bool noFood;
+  @JsonKey()
+  @override
+  final bool preformStabeling;
+  @JsonKey()
+  @override
+  final bool preformTurnOut;
+
+  @override
+  String toString() {
+    return 'TemporaryHorseSetup(timeStamp: $timeStamp, insideSetup: $insideSetup, outsideSetup: $outsideSetup, feed: $feed, keepInside: $keepInside, noFood: $noFood, preformStabeling: $preformStabeling, preformTurnOut: $preformTurnOut)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _TemporaryHorseSetup &&
+            const DeepCollectionEquality().equals(other.timeStamp, timeStamp) &&
+            const DeepCollectionEquality()
+                .equals(other.insideSetup, insideSetup) &&
+            const DeepCollectionEquality()
+                .equals(other.outsideSetup, outsideSetup) &&
+            const DeepCollectionEquality().equals(other.feed, feed) &&
+            const DeepCollectionEquality()
+                .equals(other.keepInside, keepInside) &&
+            const DeepCollectionEquality().equals(other.noFood, noFood) &&
+            const DeepCollectionEquality()
+                .equals(other.preformStabeling, preformStabeling) &&
+            const DeepCollectionEquality()
+                .equals(other.preformTurnOut, preformTurnOut));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(timeStamp),
+      const DeepCollectionEquality().hash(insideSetup),
+      const DeepCollectionEquality().hash(outsideSetup),
+      const DeepCollectionEquality().hash(feed),
+      const DeepCollectionEquality().hash(keepInside),
+      const DeepCollectionEquality().hash(noFood),
+      const DeepCollectionEquality().hash(preformStabeling),
+      const DeepCollectionEquality().hash(preformTurnOut));
+
+  @JsonKey(ignore: true)
+  @override
+  _$TemporaryHorseSetupCopyWith<_TemporaryHorseSetup> get copyWith =>
+      __$TemporaryHorseSetupCopyWithImpl<_TemporaryHorseSetup>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_TemporaryHorseSetupToJson(this);
+  }
+}
+
+abstract class _TemporaryHorseSetup implements TemporaryHorseSetup {
+  factory _TemporaryHorseSetup(
+      {required DateTime timeStamp,
+      required HorseSetup? insideSetup,
+      required HorseSetup? outsideSetup,
+      bool feed,
+      bool keepInside,
+      bool noFood,
+      bool preformStabeling,
+      bool preformTurnOut}) = _$_TemporaryHorseSetup;
+
+  factory _TemporaryHorseSetup.fromJson(Map<String, dynamic> json) =
+      _$_TemporaryHorseSetup.fromJson;
+
+  @override
+  DateTime get timeStamp;
+  @override
+  HorseSetup? get insideSetup;
+  @override
+  HorseSetup? get outsideSetup;
+  @override
+  bool get feed;
+  @override
+  bool get keepInside;
+  @override
+  bool get noFood;
+  @override
+  bool get preformStabeling;
+  @override
+  bool get preformTurnOut;
+  @override
+  @JsonKey(ignore: true)
+  _$TemporaryHorseSetupCopyWith<_TemporaryHorseSetup> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+ChoreDetails _$ChoreDetailsFromJson(Map<String, dynamic> json) {
+  return _ChoreDetails.fromJson(json);
+}
+
+/// @nodoc
+class _$ChoreDetailsTearOff {
+  const _$ChoreDetailsTearOff();
+
+  _ChoreDetails call(
+      {required String name,
+      required String ownerId,
+      bool feed = true,
+      bool preformStabelingOrTurnOut = true,
+      required HorseSetup horseSetup}) {
+    return _ChoreDetails(
+      name: name,
+      ownerId: ownerId,
+      feed: feed,
+      preformStabelingOrTurnOut: preformStabelingOrTurnOut,
+      horseSetup: horseSetup,
+    );
+  }
+
+  ChoreDetails fromJson(Map<String, Object?> json) {
+    return ChoreDetails.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $ChoreDetails = _$ChoreDetailsTearOff();
+
+/// @nodoc
+mixin _$ChoreDetails {
+  String get name => throw _privateConstructorUsedError;
+  String get ownerId => throw _privateConstructorUsedError;
+  bool get feed => throw _privateConstructorUsedError;
+  bool get preformStabelingOrTurnOut => throw _privateConstructorUsedError;
+  HorseSetup get horseSetup => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ChoreDetailsCopyWith<ChoreDetails> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ChoreDetailsCopyWith<$Res> {
+  factory $ChoreDetailsCopyWith(
+          ChoreDetails value, $Res Function(ChoreDetails) then) =
+      _$ChoreDetailsCopyWithImpl<$Res>;
+  $Res call(
+      {String name,
+      String ownerId,
+      bool feed,
+      bool preformStabelingOrTurnOut,
+      HorseSetup horseSetup});
+
+  $HorseSetupCopyWith<$Res> get horseSetup;
+}
+
+/// @nodoc
+class _$ChoreDetailsCopyWithImpl<$Res> implements $ChoreDetailsCopyWith<$Res> {
+  _$ChoreDetailsCopyWithImpl(this._value, this._then);
+
+  final ChoreDetails _value;
+  // ignore: unused_field
+  final $Res Function(ChoreDetails) _then;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? ownerId = freezed,
+    Object? feed = freezed,
+    Object? preformStabelingOrTurnOut = freezed,
+    Object? horseSetup = freezed,
+  }) {
+    return _then(_value.copyWith(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerId: ownerId == freezed
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      feed: feed == freezed
+          ? _value.feed
+          : feed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      preformStabelingOrTurnOut: preformStabelingOrTurnOut == freezed
+          ? _value.preformStabelingOrTurnOut
+          : preformStabelingOrTurnOut // ignore: cast_nullable_to_non_nullable
+              as bool,
+      horseSetup: horseSetup == freezed
+          ? _value.horseSetup
+          : horseSetup // ignore: cast_nullable_to_non_nullable
+              as HorseSetup,
+    ));
+  }
+
+  @override
+  $HorseSetupCopyWith<$Res> get horseSetup {
+    return $HorseSetupCopyWith<$Res>(_value.horseSetup, (value) {
+      return _then(_value.copyWith(horseSetup: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$ChoreDetailsCopyWith<$Res>
+    implements $ChoreDetailsCopyWith<$Res> {
+  factory _$ChoreDetailsCopyWith(
+          _ChoreDetails value, $Res Function(_ChoreDetails) then) =
+      __$ChoreDetailsCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {String name,
+      String ownerId,
+      bool feed,
+      bool preformStabelingOrTurnOut,
+      HorseSetup horseSetup});
+
+  @override
+  $HorseSetupCopyWith<$Res> get horseSetup;
+}
+
+/// @nodoc
+class __$ChoreDetailsCopyWithImpl<$Res> extends _$ChoreDetailsCopyWithImpl<$Res>
+    implements _$ChoreDetailsCopyWith<$Res> {
+  __$ChoreDetailsCopyWithImpl(
+      _ChoreDetails _value, $Res Function(_ChoreDetails) _then)
+      : super(_value, (v) => _then(v as _ChoreDetails));
+
+  @override
+  _ChoreDetails get _value => super._value as _ChoreDetails;
+
+  @override
+  $Res call({
+    Object? name = freezed,
+    Object? ownerId = freezed,
+    Object? feed = freezed,
+    Object? preformStabelingOrTurnOut = freezed,
+    Object? horseSetup = freezed,
+  }) {
+    return _then(_ChoreDetails(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      ownerId: ownerId == freezed
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      feed: feed == freezed
+          ? _value.feed
+          : feed // ignore: cast_nullable_to_non_nullable
+              as bool,
+      preformStabelingOrTurnOut: preformStabelingOrTurnOut == freezed
+          ? _value.preformStabelingOrTurnOut
+          : preformStabelingOrTurnOut // ignore: cast_nullable_to_non_nullable
+              as bool,
+      horseSetup: horseSetup == freezed
+          ? _value.horseSetup
+          : horseSetup // ignore: cast_nullable_to_non_nullable
+              as HorseSetup,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_ChoreDetails implements _ChoreDetails {
+  _$_ChoreDetails(
+      {required this.name,
+      required this.ownerId,
+      this.feed = true,
+      this.preformStabelingOrTurnOut = true,
+      required this.horseSetup});
+
+  factory _$_ChoreDetails.fromJson(Map<String, dynamic> json) =>
+      _$$_ChoreDetailsFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String ownerId;
+  @JsonKey()
+  @override
+  final bool feed;
+  @JsonKey()
+  @override
+  final bool preformStabelingOrTurnOut;
+  @override
+  final HorseSetup horseSetup;
+
+  @override
+  String toString() {
+    return 'ChoreDetails(name: $name, ownerId: $ownerId, feed: $feed, preformStabelingOrTurnOut: $preformStabelingOrTurnOut, horseSetup: $horseSetup)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ChoreDetails &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.ownerId, ownerId) &&
+            const DeepCollectionEquality().equals(other.feed, feed) &&
+            const DeepCollectionEquality().equals(
+                other.preformStabelingOrTurnOut, preformStabelingOrTurnOut) &&
+            const DeepCollectionEquality()
+                .equals(other.horseSetup, horseSetup));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(ownerId),
+      const DeepCollectionEquality().hash(feed),
+      const DeepCollectionEquality().hash(preformStabelingOrTurnOut),
+      const DeepCollectionEquality().hash(horseSetup));
+
+  @JsonKey(ignore: true)
+  @override
+  _$ChoreDetailsCopyWith<_ChoreDetails> get copyWith =>
+      __$ChoreDetailsCopyWithImpl<_ChoreDetails>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ChoreDetailsToJson(this);
+  }
+}
+
+abstract class _ChoreDetails implements ChoreDetails {
+  factory _ChoreDetails(
+      {required String name,
+      required String ownerId,
+      bool feed,
+      bool preformStabelingOrTurnOut,
+      required HorseSetup horseSetup}) = _$_ChoreDetails;
+
+  factory _ChoreDetails.fromJson(Map<String, dynamic> json) =
+      _$_ChoreDetails.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get ownerId;
+  @override
+  bool get feed;
+  @override
+  bool get preformStabelingOrTurnOut;
+  @override
+  HorseSetup get horseSetup;
+  @override
+  @JsonKey(ignore: true)
+  _$ChoreDetailsCopyWith<_ChoreDetails> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 HorseConfiguration _$HorseConfigurationFromJson(Map<String, dynamic> json) {

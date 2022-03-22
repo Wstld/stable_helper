@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:stable_helper/core/constants/enums.dart';
+import 'package:stable_helper/core/extensions/extentions.dart';
 import 'package:stable_helper/data/models/models.dart';
 
 class FirestoreRepo {
@@ -39,6 +40,35 @@ class FirestoreRepo {
 
   void saveHorse(Horse horse, String userId) {
     userData.doc(userId).update({'horses.${horse.id}': horse.toJson()});
+  }
+
+  Future<List<Horse>> fetchAllHorsesAtStables(
+      List<String> membersList, String stablesId) async {
+    List<User> owners = [];
+    List<Horse> horses = [];
+    await userData
+        .where(FieldPath.documentId, whereIn: membersList)
+        .get()
+        .then((response) {
+      if (response.docs.isNotEmpty) {
+        for (var element in response.docs) {
+          owners.add(User.fromJson(element.data() as Map<String, dynamic>));
+        }
+        //check for horses stabled at users stable
+      }
+    });
+
+    for (var owner in owners) {
+      if (owner.horses != null) {
+        owner.horses!.forEach((key, value) {
+          if (value.stablesId != null && value.stablesId == stablesId) {
+            horses.add(value);
+          }
+        });
+      }
+    }
+
+    return horses;
   }
 
   void addData() {
@@ -79,5 +109,15 @@ class FirestoreRepo {
         .collection('users')
         .doc('yQCa8eiwRWYJnZ7GoDpweks76Ee2')
         .set(user.toJson());
+  }
+
+  void saveTempHorseSettings(
+      {required TemporaryHorseSetup temporaryHorseSetup,
+      required String horseId,
+      required String userId}) async {
+    await userData.doc(userId).update({
+      'horses.$horseId.temporarySetup.${DateTime.now().getDate}':
+          temporaryHorseSetup.toJson()
+    });
   }
 }

@@ -21,4 +21,12 @@ extension DateTimeExtension on DateTime {
         return Days.monday;
     }
   }
+
+  String get getDate {
+    return '$day,$month,$year';
+  }
+
+  bool isSameDate(DateTime other) {
+    return year == other.year && month == other.month && day == other.day;
+  }
 }

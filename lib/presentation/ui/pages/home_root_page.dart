@@ -30,10 +30,9 @@ class HomeRootPage extends GetView {
           ]),
         ),
         body: Container(
-          alignment: Alignment.center,
           padding: pagePadding,
           child: GetBuilder<HomeRootController>(
-            init: HomeRootController(Get.find(), Get.find()),
+            init: Get.put(HomeRootController(Get.find(), Get.find())),
             builder: (controller) => controller.obx(
               (userData) => userData!.stablesId == null
                   ? const UserHomeContainerNonMember()

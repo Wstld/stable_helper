@@ -7,6 +7,7 @@ class StablesChoreController extends GetxController {
   StablesChoreController(this._authController, this._firestoreRepo);
   final AuthController _authController;
   final FirestoreRepo _firestoreRepo;
+  final RxInt currentIndex = RxInt(0);
   Rxn<User> assignee = Rxn();
 
   Future<User?> fetchAssignee(String userId) async {
