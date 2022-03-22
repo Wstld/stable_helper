@@ -39,18 +39,76 @@ _$_Horse _$$_HorseFromJson(Map<String, dynamic> json) => _$_Horse(
       id: json['id'] as String,
       ownerId: json['ownerId'] as String,
       name: json['name'] as String,
+      stablesId: json['stablesId'] as String?,
       extraRiders: (json['extraRiders'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
       horseSetup: HorseConfiguration.fromJson(
           json['horseSetup'] as Map<String, dynamic>),
+      temporarySetup: (json['temporarySetup'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+            k, TemporaryHorseSetup.fromJson(e as Map<String, dynamic>)),
+      ),
     );
 
 Map<String, dynamic> _$$_HorseToJson(_$_Horse instance) => <String, dynamic>{
       'id': instance.id,
       'ownerId': instance.ownerId,
       'name': instance.name,
+      'stablesId': instance.stablesId,
       'extraRiders': instance.extraRiders,
+      'horseSetup': instance.horseSetup.toJson(),
+      'temporarySetup':
+          instance.temporarySetup?.map((k, e) => MapEntry(k, e.toJson())),
+    };
+
+_$_TemporaryHorseSetup _$$_TemporaryHorseSetupFromJson(
+        Map<String, dynamic> json) =>
+    _$_TemporaryHorseSetup(
+      timeStamp: DateTime.parse(json['timeStamp'] as String),
+      insideSetup: json['insideSetup'] == null
+          ? null
+          : HorseSetup.fromJson(json['insideSetup'] as Map<String, dynamic>),
+      outsideSetup: json['outsideSetup'] == null
+          ? null
+          : HorseSetup.fromJson(json['outsideSetup'] as Map<String, dynamic>),
+      feed: json['feed'] as bool? ?? true,
+      keepInside: json['keepInside'] as bool? ?? false,
+      noFood: json['noFood'] as bool? ?? false,
+      preformStabeling: json['preformStabeling'] as bool? ?? true,
+      preformTurnOut: json['preformTurnOut'] as bool? ?? true,
+    );
+
+Map<String, dynamic> _$$_TemporaryHorseSetupToJson(
+        _$_TemporaryHorseSetup instance) =>
+    <String, dynamic>{
+      'timeStamp': instance.timeStamp.toIso8601String(),
+      'insideSetup': instance.insideSetup?.toJson(),
+      'outsideSetup': instance.outsideSetup?.toJson(),
+      'feed': instance.feed,
+      'keepInside': instance.keepInside,
+      'noFood': instance.noFood,
+      'preformStabeling': instance.preformStabeling,
+      'preformTurnOut': instance.preformTurnOut,
+    };
+
+_$_ChoreDetails _$$_ChoreDetailsFromJson(Map<String, dynamic> json) =>
+    _$_ChoreDetails(
+      name: json['name'] as String,
+      ownerId: json['ownerId'] as String,
+      feed: json['feed'] as bool? ?? true,
+      preformStabelingOrTurnOut:
+          json['preformStabelingOrTurnOut'] as bool? ?? true,
+      horseSetup:
+          HorseSetup.fromJson(json['horseSetup'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$$_ChoreDetailsToJson(_$_ChoreDetails instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'ownerId': instance.ownerId,
+      'feed': instance.feed,
+      'preformStabelingOrTurnOut': instance.preformStabelingOrTurnOut,
       'horseSetup': instance.horseSetup.toJson(),
     };
 

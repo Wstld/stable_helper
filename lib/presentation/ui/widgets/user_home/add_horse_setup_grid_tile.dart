@@ -3,8 +3,8 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:stable_helper/core/constants/enums.dart';
 import 'package:stable_helper/presentation/controller/add_horse_controller.dart';
 
-class HorseSetupGridTile extends GetView<AddHorseController> {
-  const HorseSetupGridTile({
+class AddHorseSetupGridTile extends GetView<AddHorseController> {
+  const AddHorseSetupGridTile({
     Key? key,
     this.coverSetup,
     this.protection,

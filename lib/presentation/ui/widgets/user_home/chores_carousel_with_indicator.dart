@@ -1,14 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stable_helper/core/constants/nav_consts.dart';
 import 'package:stable_helper/core/theme/themes.dart';
 import 'package:stable_helper/data/models/models.dart';
 import 'package:stable_helper/data/repository/firestore_repo.dart';
 import 'package:stable_helper/presentation/controller/controllers.dart';
+import 'package:stable_helper/presentation/controller/home_root_controller.dart';
 import 'package:stable_helper/presentation/controller/stables_chore_controller.dart';
 
-class CarouselWithIndicator extends StatelessWidget {
-  CarouselWithIndicator({Key? key, required this.list}) : super(key: key);
+class ChoresCarouselWithIndicator extends StatelessWidget {
+  ChoresCarouselWithIndicator({Key? key, required this.list}) : super(key: key);
   final List<StableChore> list;
   final RxInt carouselIndex = RxInt(0);
   @override
@@ -27,18 +29,25 @@ class CarouselWithIndicator extends StatelessWidget {
                       _ctrl.fetchAssignee(list[itemIndex].assingneeId!);
                     }
 
-                    return Container(
-                      color: Colors.blue,
-                      width: 300,
-                      height: 100,
-                      child: Column(
-                        children: [
-                          Text(list[itemIndex].displayName),
-                          Text(_ctrl.assignee.value != null
-                              ? '${_ctrl.assignee.value!.firstname} '
-                                  '${_ctrl.assignee.value!.lastname}'
-                              : ''),
-                        ],
+                    return GestureDetector(
+                      onTap: list[pageIndex] is! Feeding
+                          ? () => Get.toNamed(
+                              Pages.stableChoreDetails.routeName,
+                              arguments: {'type': list[pageIndex]})
+                          : () => {},
+                      child: Container(
+                        color: Colors.blue,
+                        width: 300,
+                        height: 100,
+                        child: Column(
+                          children: [
+                            Text(list[itemIndex].displayName),
+                            Text(_ctrl.assignee.value != null
+                                ? '${_ctrl.assignee.value!.firstname} '
+                                    '${_ctrl.assignee.value!.lastname}'
+                                : ''),
+                          ],
+                        ),
                       ),
                     );
                   });
@@ -48,8 +57,12 @@ class CarouselWithIndicator extends StatelessWidget {
                 aspectRatio: 3.0,
                 enlargeStrategy: CenterPageEnlargeStrategy.scale,
                 enableInfiniteScroll: false,
-                onPageChanged: ((index, reaseon) =>
-                    carouselIndex.value = index))),
+                onPageChanged: ((index, reaseon) {
+                  Get.find<HomeRootController>()
+                      .horseSetupcarouselController
+                      .animateToPage(index);
+                  carouselIndex.value = index;
+                }))),
         verticalSpaceSmall,
         ObxValue<RxInt>(
             (index) => Row(

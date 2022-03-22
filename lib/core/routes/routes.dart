@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:stable_helper/core/constants/nav_consts.dart';
 import 'package:stable_helper/presentation/ui/pages/pages.dart';
+import 'package:stable_helper/presentation/ui/pages/stable_chore_details.dart';
 
 class AppPages {
   AppPages._();
@@ -20,6 +21,10 @@ class AppPages {
     GetPage(
       name: Pages.addHorse.routeName,
       page: () => AddHorsePage(),
+    ),
+    GetPage(
+      name: Pages.stableChoreDetails.routeName,
+      page: () => const StableChoreDetailsPage(),
     )
   ];
 }

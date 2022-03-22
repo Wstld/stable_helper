@@ -26,11 +26,44 @@ class Horse with _$Horse {
     required String id,
     required String ownerId,
     required String name,
+    String? stablesId,
     required List<String>? extraRiders,
     required HorseConfiguration horseSetup,
+    Map<String, TemporaryHorseSetup>? temporarySetup,
   }) = _Horse;
 
   factory Horse.fromJson(Map<String, dynamic> json) => _$HorseFromJson(json);
+}
+
+@freezed
+class TemporaryHorseSetup with _$TemporaryHorseSetup {
+  factory TemporaryHorseSetup({
+    required DateTime timeStamp,
+    required HorseSetup? insideSetup,
+    required HorseSetup? outsideSetup,
+    @Default(true) bool feed,
+    @Default(false) bool keepInside,
+    @Default(false) bool noFood,
+    @Default(true) bool preformStabeling,
+    @Default(true) bool preformTurnOut,
+  }) = _TemporaryHorseSetup;
+
+  factory TemporaryHorseSetup.fromJson(Map<String, dynamic> json) =>
+      _$TemporaryHorseSetupFromJson(json);
+}
+
+@freezed
+class ChoreDetails with _$ChoreDetails {
+  factory ChoreDetails({
+    required String name,
+    required String ownerId,
+    @Default(true) bool feed,
+    @Default(true) bool preformStabelingOrTurnOut,
+    required HorseSetup horseSetup,
+  }) = _ChoreDetails;
+
+  factory ChoreDetails.fromJson(Map<String, dynamic> json) =>
+      _$ChoreDetailsFromJson(json);
 }
 
 @freezed
