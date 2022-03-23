@@ -15,6 +15,11 @@ class LoginController extends GetxController {
   final TextEditingController passwordSecondInputTextController =
       TextEditingController();
 
+  final TextEditingController firstNameInputTextController =
+      TextEditingController();
+  final TextEditingController lastNameInputTextController =
+      TextEditingController();
+
   RxString emaiInput = ''.obs;
   RxnString emailErrorTxt = RxnString();
 
@@ -22,16 +27,31 @@ class LoginController extends GetxController {
   RxString passwordSecondInput = ''.obs;
   RxString passwordErrorTxt = ''.obs;
 
+  RxBool isOwner = false.obs;
+
+  RxString firstNameInput = ''.obs;
+  RxString firstNameErrorTxt = ''.obs;
+  RxString lastNameInput = ''.obs;
+  RxString lastNameErrorTxt = ''.obs;
+
   final Rx<LoginFormType> formType = LoginFormType.login.obs;
 
   @override
   void onInit() {
+    initValidations();
+    super.onInit();
+  }
+
+  void initValidations() {
     debounce(emaiInput, validateEmail, time: const Duration(milliseconds: 500));
     debounce(passwordInput, validatePassword,
         time: const Duration(milliseconds: 500));
     debounce(passwordSecondInput, validatePasswordEqual,
         time: const Duration(milliseconds: 500));
-    super.onInit();
+    debounce(firstNameInput, validateFirstName,
+        time: const Duration(milliseconds: 500));
+    debounce(lastNameInput, validateLasttName,
+        time: const Duration(milliseconds: 500));
   }
 
   bool validateEmail(String input) {
@@ -75,6 +95,51 @@ class LoginController extends GetxController {
     }
   }
 
+  bool validateFirstName(String input) {
+    final bool validation = validateStringNotEmpty(input);
+    if (validation) {
+      firstNameErrorTxt.value = '';
+    } else {
+      firstNameErrorTxt.value = '''First name can't be empty ''';
+    }
+
+    return validation;
+  }
+
+  bool validateLasttName(String input) {
+    final bool validation = validateStringNotEmpty(input);
+    if (validation) {
+      firstNameErrorTxt.value = '';
+    } else {
+      firstNameErrorTxt.value = '''Last name can't be empty ''';
+    }
+
+    return validation;
+  }
+
+  bool validateStringNotEmpty(String input) {
+    return input.isNotEmpty;
+  }
+
+  bool validateRegistration() {
+    return validateEmail(emaiInput.value) &&
+        validatePassword(passwordInput.value) &&
+        validatePasswordEqual(passwordInput.value) &&
+        validateFirstName(firstNameInput.value) &&
+        validateLasttName(lastNameInput.value);
+  }
+
+  void register() async {
+    if (validateRegistration()) {
+      _authController.createUser(
+          email: emaiInput.value,
+          firstName: firstNameInput.value,
+          lastName: lastNameInput.value,
+          password: passwordInput.value,
+          userType: isOwner.value ? UserType.owner : UserType.user);
+    }
+  }
+
   void login() async {
     if (!validateEmail(emaiInput.value)) {
       Get.snackbar(emailErrorMsg, '',
@@ -84,15 +149,10 @@ class LoginController extends GetxController {
           snackPosition: SnackPosition.TOP, snackStyle: SnackStyle.FLOATING);
     } else {
       emailErrorTxt.value = '';
-      _authController.login(emaiInput.value, passwordInput.value);
-    }
-  }
-
-  void register() async {
-    if (validateEmail(emaiInput.value) &&
-        validatePassword(passwordInput.value) &&
-        validatePasswordEqual(passwordInput.value)) {
-      _authController.createUser(emaiInput.value, passwordInput.value);
+      _authController.login(
+        email: emaiInput.value,
+        password: passwordInput.value,
+      );
     }
   }
 }

@@ -3,6 +3,7 @@ import 'package:stable_helper/core/constants/enums.dart';
 import 'package:stable_helper/data/models/models.dart';
 import 'package:stable_helper/data/repository/auth_repo.dart';
 import 'package:stable_helper/data/repository/firestore_repo.dart';
+import 'package:stable_helper/presentation/controller/home_root_controller.dart';
 
 class AddHorseController extends GetxController {
   AddHorseController(this._firestoreRepo, this._authRepo);
@@ -19,6 +20,8 @@ class AddHorseController extends GetxController {
 
   RxBool concentrateSelected = RxBool(false);
   Rx<HorseConcentrateFeed> timeForConcentrate = Rx(HorseConcentrateFeed.none);
+
+  RxBool horseIsStabledAtUserMemberStable = RxBool(true);
 
   void updateHorseSetup({
     HorsePosition? position,
@@ -62,6 +65,9 @@ class AddHorseController extends GetxController {
     Horse horse = Horse(
       id: name.value + _authRepo.firebaseAuth.currentUser!.uid,
       ownerId: _authRepo.firebaseAuth.currentUser!.uid,
+      stablesId: horseIsStabledAtUserMemberStable.value
+          ? Get.find<HomeRootController>().userData.value?.stablesId
+          : null,
       name: name.value,
       extraRiders: null,
       horseSetup: HorseConfiguration(
