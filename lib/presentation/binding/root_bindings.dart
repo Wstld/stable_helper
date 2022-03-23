@@ -5,7 +5,7 @@ import 'package:stable_helper/presentation/controller/controllers.dart';
 class RootBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<AuthController>(() => AuthController(Get.find<AuthRepo>()),
-        fenix: true);
+    Get.put<AuthController>(AuthController(Get.find<AuthRepo>()),
+        permanent: true);
   }
 }

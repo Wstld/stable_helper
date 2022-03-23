@@ -10,7 +10,7 @@ class LoginMiddleWare extends GetMiddleware {
   RouteSettings? redirect(String? route) {
     //TODO:Init login service and check for chached user.
     AuthController authController = Get.find<AuthController>();
-    log('In Redirect');
+    log('In Redirect: ${authController.user}');
     return authController.user.value != null
         ? RouteSettings(name: Pages.home.routeName)
         : RouteSettings(name: Pages.login.routeName);
