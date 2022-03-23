@@ -10,68 +10,77 @@ import 'package:stable_helper/presentation/controller/home_root_controller.dart'
 import 'package:stable_helper/presentation/controller/stables_chore_controller.dart';
 
 class ChoresCarouselWithIndicator extends StatelessWidget {
-  ChoresCarouselWithIndicator({Key? key, required this.list}) : super(key: key);
+  ChoresCarouselWithIndicator(
+      {Key? key, required this.list, required this.carouselIndex})
+      : super(key: key);
   final List<StableChore> list;
-  final RxInt carouselIndex = RxInt(0);
+  final RxInt carouselIndex;
+  final HomeRootController homeRootController = Get.find<HomeRootController>();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CarouselSlider.builder(
-            itemCount: list.length,
-            itemBuilder: (context, itemIndex, pageIndex) {
-              return GetX<StablesChoreController>(
-                  init: StablesChoreController(
-                      Get.find<AuthController>(), Get.find<FirestoreRepo>()),
-                  tag: itemIndex.toString(),
-                  builder: (_ctrl) {
-                    if (list[itemIndex].assingneeId != null) {
-                      _ctrl.fetchAssignee(list[itemIndex].assingneeId!);
-                    }
+    return Obx(() => Column(
+          children: [
+            CarouselSlider.builder(
+                itemCount: list.length,
+                itemBuilder: (context, itemIndex, pageIndex) {
+                  return GetX<StablesChoreController>(
+                      init: StablesChoreController(Get.find<AuthController>(),
+                          Get.find<FirestoreRepo>()),
+                      tag: itemIndex.toString(),
+                      builder: (_ctrl) {
+                        if (list[itemIndex].assingneeId != null) {
+                          _ctrl.fetchAssignee(list[itemIndex].assingneeId!);
+                        }
 
-                    return GestureDetector(
-                      onTap: list[pageIndex] is! Feeding
-                          ? () => Get.toNamed(
-                              Pages.stableChoreDetails.routeName,
-                              arguments: {'type': list[pageIndex]})
-                          : () => {},
-                      child: Container(
-                        color: Colors.blue,
-                        width: 300,
-                        height: 100,
-                        child: Column(
-                          children: [
-                            Text(list[itemIndex].displayName),
-                            Text(_ctrl.assignee.value != null
-                                ? '${_ctrl.assignee.value!.firstname} '
-                                    '${_ctrl.assignee.value!.lastname}'
-                                : ''),
-                          ],
-                        ),
-                      ),
-                    );
-                  });
-            },
-            options: CarouselOptions(
-                enlargeCenterPage: true,
-                aspectRatio: 3.0,
-                enlargeStrategy: CenterPageEnlargeStrategy.scale,
-                enableInfiniteScroll: false,
-                onPageChanged: ((index, reaseon) {
-                  Get.find<HomeRootController>()
-                      .horseSetupcarouselController
-                      .animateToPage(index);
-                  carouselIndex.value = index;
-                }))),
-        verticalSpaceSmall,
-        ObxValue<RxInt>(
-            (index) => Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: getButtons(index.value),
-                ),
-            carouselIndex),
-      ],
-    );
+                        return GestureDetector(
+                          onTap: list[pageIndex] is! Feeding
+                              ? () => Get.toNamed(
+                                  Pages.stableChoreDetails.routeName,
+                                  arguments: {'type': list[pageIndex]})
+                              : () => {},
+                          child: Container(
+                            color: Colors.blue,
+                            width: 300,
+                            height: 100,
+                            child: Column(
+                              children: [
+                                Text(list[itemIndex].displayName),
+                                Text(_ctrl.assignee.value != null
+                                    ? '${_ctrl.assignee.value!.firstname} '
+                                        '${_ctrl.assignee.value!.lastname}'
+                                    : ''),
+                              ],
+                            ),
+                          ),
+                        );
+                      });
+                },
+                options: CarouselOptions(
+                    enlargeCenterPage: true,
+                    aspectRatio: 3.0,
+                    enlargeStrategy: CenterPageEnlargeStrategy.scale,
+                    enableInfiniteScroll: false,
+                    onPageChanged: ((index, reaseon) {
+                      if (homeRootController.userData.value?.horses?.values.any(
+                              (element) =>
+                                  element.stablesId ==
+                                  homeRootController
+                                      .userData.value?.stablesId) ??
+                          false) {
+                        homeRootController.horseSetupcarouselController
+                            .animateToPage(index);
+                      }
+                      carouselIndex.value = index;
+                    }))),
+            verticalSpaceSmall,
+            ObxValue<RxInt>(
+                (index) => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: getButtons(index.value),
+                    ),
+                carouselIndex),
+          ],
+        ));
   }
 
   List<Widget> getButtons(int selectedIndex) {

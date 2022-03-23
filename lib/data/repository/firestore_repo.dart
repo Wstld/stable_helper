@@ -7,17 +7,16 @@ import 'package:stable_helper/data/models/models.dart';
 
 class FirestoreRepo {
   FirestoreRepo(this.firebaseFirestore)
-      : userData =
-            firebaseFirestore.collection(FirebaseCollections.users.getName),
+      : users = firebaseFirestore.collection(FirebaseCollections.users.getName),
         stables =
             firebaseFirestore.collection(FirebaseCollections.stables.getName);
 
   FirebaseFirestore firebaseFirestore;
   CollectionReference stables;
-  CollectionReference userData;
+  CollectionReference users;
 
   Stream<DocumentSnapshot> getUserDataStream(String userId) {
-    return userData.doc(userId).snapshots();
+    return users.doc(userId).snapshots();
   }
 
   Stream<DocumentSnapshot> getStablesStream(String stablesId) {
@@ -26,7 +25,7 @@ class FirestoreRepo {
 
   Future<User> fetchUserData(String userId) async {
     try {
-      DocumentSnapshot response = await userData.doc(userId).get();
+      DocumentSnapshot response = await users.doc(userId).get();
       if (response.data() != null) {
         return User.fromJson(response.data() as Map<String, dynamic>);
       } else {
@@ -39,14 +38,14 @@ class FirestoreRepo {
   }
 
   void saveHorse(Horse horse, String userId) {
-    userData.doc(userId).update({'horses.${horse.id}': horse.toJson()});
+    users.doc(userId).update({'horses.${horse.id}': horse.toJson()});
   }
 
   Future<List<Horse>> fetchAllHorsesAtStables(
       List<String> membersList, String stablesId) async {
     List<User> owners = [];
     List<Horse> horses = [];
-    await userData
+    await users
         .where(FieldPath.documentId, whereIn: membersList)
         .get()
         .then((response) {
@@ -115,7 +114,7 @@ class FirestoreRepo {
       {required TemporaryHorseSetup temporaryHorseSetup,
       required String horseId,
       required String userId}) async {
-    await userData.doc(userId).update({
+    await users.doc(userId).update({
       'horses.$horseId.temporarySetup.${DateTime.now().getDate}':
           temporaryHorseSetup.toJson()
     });

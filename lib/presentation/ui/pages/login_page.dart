@@ -38,10 +38,10 @@ class LoginPage extends GetView<AuthController> {
                       maxLines: 1,
                       obscureText: true,
                     ),
-                    if (_ctrl.formType.value == LoginFormType.register)
+                    if (_ctrl.formType.value == LoginFormType.register) ...[
                       TextFormField(
                         decoration: InputDecoration(
-                            hintText: passwordHint,
+                            hintText: passwordReEnterHint,
                             errorText: _ctrl.passwordErrorTxt.value),
                         onChanged: (value) =>
                             _ctrl.passwordSecondInput.value = value,
@@ -50,6 +50,26 @@ class LoginPage extends GetView<AuthController> {
                         maxLines: 1,
                         obscureText: true,
                       ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                            hintText: firstNameHint,
+                            errorText: _ctrl.firstNameErrorTxt.value),
+                        onChanged: (value) =>
+                            _ctrl.firstNameInput.value = value,
+                        controller: _ctrl.firstNameInputTextController,
+                        keyboardType: TextInputType.text,
+                        maxLines: 1,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                            hintText: lastNameHint,
+                            errorText: _ctrl.lastNameErrorTxt.value),
+                        onChanged: (value) => _ctrl.lastNameInput.value = value,
+                        controller: _ctrl.lastNameInputTextController,
+                        keyboardType: TextInputType.text,
+                        maxLines: 1,
+                      ),
+                    ],
                     TextButton(
                         onPressed: _ctrl.formType.value == LoginFormType.login
                             ? () =>
@@ -58,7 +78,7 @@ class LoginPage extends GetView<AuthController> {
                                 {_ctrl.formType.value = LoginFormType.login},
                         child: _ctrl.formType.value == LoginFormType.login
                             ? const Text(registerBtnTxt)
-                            : const Text(backBtnTxt)),
+                            : const Text(goBackToLoginBtnTxt)),
                     ElevatedButton(
                         onPressed: () =>
                             _ctrl.formType.value == LoginFormType.login
