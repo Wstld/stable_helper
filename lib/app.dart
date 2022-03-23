@@ -14,7 +14,7 @@ class App extends StatelessWidget {
       locale: Get.deviceLocale,
       initialBinding: RootBinding(),
       getPages: AppPages.pages,
-      initialRoute: Pages.splash.routeName,
+      initialRoute: Pages.login.routeName,
     );
   }
 }

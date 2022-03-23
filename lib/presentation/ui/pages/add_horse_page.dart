@@ -4,7 +4,7 @@ import 'package:stable_helper/core/constants/constants.dart';
 import 'package:stable_helper/core/constants/enums.dart';
 import 'package:stable_helper/core/theme/themes.dart';
 import 'package:stable_helper/presentation/controller/add_horse_controller.dart';
-import 'package:stable_helper/presentation/controller/controllers.dart';
+import 'package:stable_helper/presentation/ui/ui.dart';
 import 'package:stable_helper/presentation/ui/widgets/user_home/add_horse_setup_grid_tile.dart';
 
 class AddHorsePage extends StatelessWidget {
@@ -40,13 +40,7 @@ class AddHorsePage extends StatelessWidget {
                     icon: const Icon(Icons.menu))),
           ],
         ),
-        drawer: Drawer(
-          child: Column(children: [
-            ElevatedButton(
-                onPressed: () => Get.find<AuthController>().logout(),
-                child: const Text(logoutBtnTxt))
-          ]),
-        ),
+        drawer: const UserMainMenu(),
         body: GetX<AddHorseController>(
             init: AddHorseController(Get.find(), Get.find()),
             builder: (_ctrl) {
@@ -58,7 +52,7 @@ class AddHorsePage extends StatelessWidget {
                     TextField(
                       onChanged: (value) => _ctrl.name.value = value,
                       decoration:
-                          const InputDecoration(hintText: inputNameHint),
+                          const InputDecoration(hintText: inputHorseNameHint),
                     ),
                     const Text(outSideDressInfoTxt),
                     GridView.builder(

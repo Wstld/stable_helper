@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stable_helper/core/constants/constants.dart';
 import 'package:stable_helper/core/theme/themes.dart';
-import 'package:stable_helper/presentation/controller/controllers.dart';
 import 'package:stable_helper/presentation/controller/home_root_controller.dart';
 import 'package:stable_helper/presentation/ui/ui.dart';
 
@@ -22,13 +20,7 @@ class HomeRootPage extends GetView {
                     icon: const Icon(Icons.menu))),
           ],
         ),
-        drawer: Drawer(
-          child: Column(children: [
-            ElevatedButton(
-                onPressed: () => Get.find<AuthController>().logout(),
-                child: const Text(logoutBtnTxt))
-          ]),
-        ),
+        drawer: const UserMainMenu(),
         body: Container(
           padding: pagePadding,
           child: GetBuilder<HomeRootController>(
