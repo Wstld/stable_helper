@@ -15,6 +15,7 @@ class HomeRootController extends GetxController with StateMixin<User> {
   RxList<StableChore> schedule = <StableChore>[].obs;
   final CarouselController horseSetupcarouselController = CarouselController();
   List<Horse> get horseList => userData.value?.horses?.values.toList() ?? [];
+  final RxInt memberHomeCarouselIndex = RxInt(0);
 
   HomeRootController(this._authRepo, this._firestoreRepo);
   @override

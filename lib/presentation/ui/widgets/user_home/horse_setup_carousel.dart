@@ -7,9 +7,12 @@ import 'package:stable_helper/presentation/controller/daily_horse_setup_controll
 import 'package:stable_helper/presentation/controller/home_root_controller.dart';
 
 class HorseSetupCarousel extends GetView<HomeRootController> {
-  HorseSetupCarousel({Key? key, required this.stableChores}) : super(key: key);
+  HorseSetupCarousel(
+      {Key? key, required this.stableChores, required this.carouselIndex})
+      : super(key: key);
   final List<StableChore> stableChores;
   final RxInt horseIndex = RxInt(0);
+  final RxInt carouselIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -42,44 +45,45 @@ class HorseSetupCarousel extends GetView<HomeRootController> {
                                   () => _ctrl.optionsList[index],
                                 )),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              iconSize: 40,
-                              onPressed: horseIndex.value > 0
-                                  ? () {
-                                      horseIndex.value -= 1;
-                                      _ctrl.setHorse(controller
-                                          .horseList[horseIndex.value]);
-                                    }
-                                  : () => {},
-                              icon: Icon(
-                                Icons.chevron_left,
-                                color: horseIndex.value > 0
-                                    ? Colors.black
-                                    : Colors.grey,
-                              )),
-                          const Text('Swap horse'),
-                          IconButton(
-                              iconSize: 40,
-                              onPressed: horseIndex.value <
-                                      controller.horseList.length - 1
-                                  ? () {
-                                      horseIndex.value += 1;
-                                      _ctrl.setHorse(controller
-                                          .horseList[horseIndex.value]);
-                                    }
-                                  : () => {},
-                              icon: Icon(
-                                Icons.chevron_right,
-                                color: horseIndex.value <
+                      if (controller.horseList.length > 1)
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                iconSize: 40,
+                                onPressed: horseIndex.value > 0
+                                    ? () {
+                                        horseIndex.value -= 1;
+                                        _ctrl.setHorse(controller
+                                            .horseList[horseIndex.value]);
+                                      }
+                                    : () => {},
+                                icon: Icon(
+                                  Icons.chevron_left,
+                                  color: horseIndex.value > 0
+                                      ? Colors.black
+                                      : Colors.grey,
+                                )),
+                            const Text('Swap horse'),
+                            IconButton(
+                                iconSize: 40,
+                                onPressed: horseIndex.value <
                                         controller.horseList.length - 1
-                                    ? Colors.black
-                                    : Colors.grey,
-                              )),
-                        ],
-                      ),
+                                    ? () {
+                                        horseIndex.value += 1;
+                                        _ctrl.setHorse(controller
+                                            .horseList[horseIndex.value]);
+                                      }
+                                    : () => {},
+                                icon: Icon(
+                                  Icons.chevron_right,
+                                  color: horseIndex.value <
+                                          controller.horseList.length - 1
+                                      ? Colors.black
+                                      : Colors.grey,
+                                )),
+                          ],
+                        ),
                     ],
                   );
                 });
@@ -88,6 +92,7 @@ class HorseSetupCarousel extends GetView<HomeRootController> {
           }
         },
         options: CarouselOptions(
+            initialPage: carouselIndex.value,
             aspectRatio: 1 / 1.2,
             viewportFraction: 1,
             enableInfiniteScroll: false,

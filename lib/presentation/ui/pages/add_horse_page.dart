@@ -12,7 +12,7 @@ class AddHorsePage extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
 
   void scrollToBottom() async {
-    await Future.delayed(const Duration(milliseconds: 10));
+    await Future.delayed(const Duration(milliseconds: 20));
     _scrollController.animateTo(_scrollController.position.maxScrollExtent,
         duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);
   }
@@ -84,6 +84,17 @@ class AddHorsePage extends StatelessWidget {
                         itemBuilder: (context, index) => insideList[index]),
                     Row(
                       children: [
+                        const Text(horseStabledAtMemberStableToggleTxt),
+                        Switch(
+                            value: _ctrl.horseIsStabledAtUserMemberStable.value,
+                            onChanged: (val) => {
+                                  _ctrl.horseIsStabledAtUserMemberStable.value =
+                                      val,
+                                }),
+                      ],
+                    ),
+                    Row(
+                      children: [
                         const Text(concentrateFoodInfoTxt),
                         Switch(
                             value: _ctrl.concentrateSelected.value,
@@ -107,7 +118,10 @@ class AddHorsePage extends StatelessWidget {
                           itemBuilder: (context, index) => timeSlots[index]),
                     ],
                     ElevatedButton(
-                        onPressed: () => _ctrl.saveHorseToDb(),
+                        onPressed: () {
+                          _ctrl.saveHorseToDb();
+                          Get.back();
+                        },
                         child: const Text('save')),
                     verticalSpaceLarge
                   ],
