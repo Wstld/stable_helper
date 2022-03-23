@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:stable_helper/core/constants/enums.dart';
 import 'package:stable_helper/core/constants/nav_consts.dart';
 import 'package:stable_helper/data/repository/auth_repo.dart';
 
@@ -22,10 +23,13 @@ class AuthController extends GetxController {
     super.onInit();
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> login({
+    required String email,
+    required String password,
+  }) async {
     try {
       await _authRepo.firebaseLogin(email, password);
-      Get.toNamed(Pages.home.routeName);
+      Get.offAllNamed(Pages.home.routeName);
     } catch (e) {
       Get.snackbar(e.toString(), '');
     }
@@ -33,13 +37,19 @@ class AuthController extends GetxController {
 
   void logout() {
     _authRepo.firebaseSignout();
-    Get.offNamed(Pages.login.routeName);
+    Get.offAllNamed(Pages.login.routeName);
   }
 
-  Future<void> createUser(String email, String password) async {
+  Future<void> createUser(
+      {required String email,
+      required String password,
+      required String firstName,
+      required String lastName,
+      required UserType userType}) async {
     try {
-      await _authRepo.firebaseCreateUser(email, password);
-      Get.toNamed(Pages.home.routeName);
+      await _authRepo.firebaseCreateUser(
+          email, password, firstName, lastName, userType);
+      Get.offAllNamed(Pages.home.routeName);
     } catch (e) {
       Get.snackbar(e.toString(), '');
     }
