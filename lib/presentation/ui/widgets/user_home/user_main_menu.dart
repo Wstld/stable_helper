@@ -15,6 +15,7 @@ class UserMainMenu extends StatelessWidget {
             onPressed:
                 Get.find<HomeRootController>().userData.value?.stablesId != null
                     ? () {
+                        //Get.back() to close main menu.
                         Get.back();
                         Get.toNamed(Pages.myHorses.routeName);
                       }
@@ -30,6 +31,7 @@ class UserMainMenu extends StatelessWidget {
                 ))),
         TextButton(
             onPressed: () {
+              //Get.back() to close main menu.
               Get.back();
               Get.toNamed(Pages.userProfileSettings.routeName);
             },

@@ -13,13 +13,13 @@ class AuthController extends GetxController {
 
   @override
   void onInit() {
-    user.value = _authRepo.firebaseAuth.currentUser;
-
     //bind to user changes
     _authRepo.firebaseAuth.authStateChanges().listen((event) async {
       user.value = event;
       log('userchanged: ${event.toString()}');
     });
+
+    user.value = _authRepo.firebaseAuth.currentUser;
     super.onInit();
   }
 

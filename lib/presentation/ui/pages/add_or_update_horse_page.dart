@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:stable_helper/core/constants/constants.dart';
 import 'package:stable_helper/core/constants/enums.dart';
 import 'package:stable_helper/core/theme/themes.dart';
-import 'package:stable_helper/presentation/controller/add_horse_controller.dart';
+import 'package:stable_helper/presentation/controller/add_or_update_horse_controller.dart';
 import 'package:stable_helper/presentation/ui/ui.dart';
 import 'package:stable_helper/presentation/ui/widgets/user_home/add_horse_setup_grid_tile.dart';
 
-class AddHorsePage extends StatelessWidget {
-  AddHorsePage({Key? key}) : super(key: key);
+class AddOrUpdateHorsePage extends StatelessWidget {
+  AddOrUpdateHorsePage({Key? key}) : super(key: key);
   final ScrollController _scrollController = ScrollController();
 
   void scrollToBottom() async {
@@ -41,8 +41,8 @@ class AddHorsePage extends StatelessWidget {
           ],
         ),
         drawer: const UserMainMenu(),
-        body: GetX<AddHorseController>(
-            init: AddHorseController(Get.find(), Get.find()),
+        body: GetX<AddOrUpdateHorseController>(
+            init: AddOrUpdateHorseController(Get.find(), Get.find()),
             builder: (_ctrl) {
               return SingleChildScrollView(
                 controller: _scrollController,
@@ -50,6 +50,7 @@ class AddHorsePage extends StatelessWidget {
                 child: Column(
                   children: [
                     TextField(
+                      controller: _ctrl.nameInputController,
                       onChanged: (value) => _ctrl.name.value = value,
                       decoration:
                           const InputDecoration(hintText: inputHorseNameHint),

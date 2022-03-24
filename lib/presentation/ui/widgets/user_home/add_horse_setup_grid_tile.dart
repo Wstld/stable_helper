@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:stable_helper/core/constants/enums.dart';
-import 'package:stable_helper/presentation/controller/add_horse_controller.dart';
+import 'package:stable_helper/presentation/controller/add_or_update_horse_controller.dart';
 
-class AddHorseSetupGridTile extends GetView<AddHorseController> {
+class AddHorseSetupGridTile extends GetView<AddOrUpdateHorseController> {
   const AddHorseSetupGridTile({
     Key? key,
     this.coverSetup,
