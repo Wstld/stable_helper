@@ -10,6 +10,7 @@ const String firstNameHint = 'First name';
 const String lastNameHint = 'Last name';
 const String emailHint = 'Email';
 const String goBackToLoginBtnTxt = 'Login';
+const String phoneNumberHint = 'Phone number';
 
 //add horse page
 const String outSideDressInfoTxt =
@@ -26,4 +27,4 @@ const String when = 'when?';
 //user main menu
 const String logoutBtnTxt = 'Logout';
 const String myHorsesBtnTxt = 'My Horses';
-const String profileSettingsBtnTxt = 'Profile Settins';
+const String profileSettingsBtnTxt = 'Profile Settings';
