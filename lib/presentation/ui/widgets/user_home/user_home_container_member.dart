@@ -32,13 +32,10 @@ class UserHomeContainerMember extends GetWidget<HomeRootController> {
               ElevatedButton(
                   onPressed: () => Get.toNamed(Pages.addHorse.routeName),
                   child: const Text('add horse')),
-            if (user.value?.horses?.values.any(
-                    (element) => element.stablesId == user.value?.stablesId) ??
-                false)
-              HorseSetupCarousel(
-                stableChores: controller.schedule,
-                carouselIndex: controller.memberHomeCarouselIndex,
-              ),
+            HorseSetupCarousel(
+              stableChores: controller.schedule,
+              carouselIndex: controller.memberHomeCarouselIndex,
+            ),
           ],
         ));
   }

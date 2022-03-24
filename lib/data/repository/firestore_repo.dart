@@ -123,4 +123,51 @@ class FirestoreRepo {
   void deleteHorse(String horseId, String userId) {
     users.doc(userId).update({'horses.$horseId': FieldValue.delete()});
   }
+
+  void updateUserInfo(User userdData, String userId) {
+    users.doc(userId).set(userdData.toJson(), SetOptions(merge: true));
+  }
+
+  Future<User> fetchUser(String userId) async {
+    try {
+      final response = await users.doc(userId).get();
+      if (response.exists) {
+        return User.fromJson(response.data() as Map<String, dynamic>);
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  Future<Stables> fetchStables(String stablesId) async {
+    try {
+      final response = await stables.doc(stablesId).get();
+      if (response.exists) {
+        return Stables.fromJson(response.data() as Map<String, dynamic>);
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  void removeUserFromCurrentStable(String userId) async {
+    //remove stables id from user.
+    final User user = await fetchUser(userId);
+    Map<String, Horse> newHorses = user.horses!
+        .map((key, value) => MapEntry(key, value.copyWith(stablesId: null)));
+    final newUser = user.copyWith(horses: newHorses, stablesId: null);
+    updateUserInfo(newUser, newUser.userId);
+
+    //remove from stables. should be in be.
+    final Stables newStables = await fetchStables(user.stablesId!);
+    final int indexInMemberList =
+        newStables.members!.indexWhere((element) => element == user.userId);
+    newStables.members!.removeAt(indexInMemberList);
+
+    stables.doc(user.stablesId).set(newStables.toJson());
+  }
 }
