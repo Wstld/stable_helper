@@ -23,7 +23,7 @@ class AppPages {
     ),
     GetPage(
       name: Pages.addHorse.routeName,
-      page: () => AddHorsePage(),
+      page: () => AddOrUpdateHorsePage(),
     ),
     GetPage(
       name: Pages.stableChoreDetails.routeName,

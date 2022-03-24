@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stable_helper/core/constants/enums.dart';
@@ -13,6 +15,7 @@ class ChoreDetailsTile extends StatelessWidget {
     required this.stableOrTurnOut,
     required this.protectionSetup,
     required this.type,
+    required this.ownerId,
   }) : super(key: key);
   final StableChore type;
   final String title;
@@ -20,40 +23,44 @@ class ChoreDetailsTile extends StatelessWidget {
   final HorseCoverSetup cover;
   final bool stableOrTurnOut;
   final bool feed;
+  final String ownerId;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(15),
-      child: Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          Container(
-              width: Get.width,
-              padding: const EdgeInsets.all(5),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: getIcons(),
+    return GestureDetector(
+      onTap: () => log(ownerId),
+      child: Container(
+        margin: const EdgeInsets.all(15),
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            Container(
+                width: Get.width,
+                padding: const EdgeInsets.all(5),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: getIcons(),
+                  ),
                 ),
+                decoration: BoxDecoration(
+                    border: Border.all(),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)))),
+            Container(
+              padding: const EdgeInsets.only(left: 5, right: 5),
+              height: 20,
+              transform:
+                  Transform.translate(offset: const Offset(0, -10)).transform,
+              color: Theme.of(context).scaffoldBackgroundColor,
+              child: Text(
+                title,
+                softWrap: true,
+                textAlign: TextAlign.center,
               ),
-              decoration: BoxDecoration(
-                  border: Border.all(),
-                  borderRadius: const BorderRadius.all(Radius.circular(5)))),
-          Container(
-            padding: const EdgeInsets.only(left: 5, right: 5),
-            height: 20,
-            transform:
-                Transform.translate(offset: const Offset(0, -10)).transform,
-            color: Theme.of(context).scaffoldBackgroundColor,
-            child: Text(
-              title,
-              softWrap: true,
-              textAlign: TextAlign.center,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

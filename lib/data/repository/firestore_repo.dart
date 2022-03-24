@@ -119,4 +119,8 @@ class FirestoreRepo {
           temporaryHorseSetup.toJson()
     });
   }
+
+  void deleteHorse(String horseId, String userId) {
+    users.doc(userId).update({'horses.$horseId': FieldValue.delete()});
+  }
 }

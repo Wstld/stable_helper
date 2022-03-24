@@ -41,6 +41,7 @@ class StableChoreDetailsPage extends GetView<HomeRootController> {
                             ChoreDetails choreDetails = choreList[index];
                             HorseSetup horseSetup = choreList[index].horseSetup;
                             return ChoreDetailsTile(
+                              ownerId: choreDetails.ownerId,
                               title: choreDetails.name,
                               cover: horseSetup.cover,
                               feed: choreDetails.feed,
