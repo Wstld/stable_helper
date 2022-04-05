@@ -23,13 +23,15 @@ class HomeRootPage extends GetView {
         drawer: const UserMainMenu(),
         body: Container(
           padding: pagePadding,
-          child: GetBuilder<HomeRootController>(
-            init: Get.put(HomeRootController(Get.find(), Get.find())),
-            builder: (controller) => controller.obx(
-              (userData) => userData!.stablesId == null
-                  ? const UserHomeContainerNonMember()
-                  : const UserHomeContainerMember(),
-              onEmpty: const Text('Show on boarding'),
+          child: SingleChildScrollView(
+            child: GetBuilder<HomeRootController>(
+              init: Get.put(HomeRootController(Get.find(), Get.find())),
+              builder: (controller) => controller.obx(
+                (userData) => userData!.stablesId == null
+                    ? const UserHomeContainerNonMember()
+                    : const UserHomeContainerMember(),
+                onEmpty: const Text('Show on boarding'),
+              ),
             ),
           ),
         ),
