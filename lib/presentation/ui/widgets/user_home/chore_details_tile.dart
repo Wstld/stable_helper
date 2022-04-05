@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stable_helper/core/constants/enums.dart';
 import 'package:stable_helper/core/theme/stables_icon_icons.dart';
 import 'package:stable_helper/data/models/models.dart';
+import 'package:stable_helper/presentation/ui/widgets/user_home/contact_horse_owner_dialog.dart';
 
 class ChoreDetailsTile extends StatelessWidget {
   const ChoreDetailsTile({
@@ -28,7 +27,7 @@ class ChoreDetailsTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => log(ownerId),
+      onTap: () => Get.dialog(ContactHorseOwnerDialog(ownerId: ownerId)),
       child: Container(
         margin: const EdgeInsets.all(15),
         child: Stack(
