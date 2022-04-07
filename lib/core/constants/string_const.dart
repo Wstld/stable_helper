@@ -11,6 +11,7 @@ const String lastNameHint = 'Last name';
 const String emailHint = 'Email';
 const String goBackToLoginBtnTxt = 'Login';
 const String phoneNumberHint = 'Phone number';
+const String loginErrorMsg = 'Check password and username';
 
 //add horse page
 const String outSideDressInfoTxt =

@@ -25,14 +25,14 @@ class LoginController extends GetxController {
 
   RxString passwordInput = ''.obs;
   RxString passwordSecondInput = ''.obs;
-  RxString passwordErrorTxt = ''.obs;
+  RxnString passwordErrorTxt = RxnString();
 
   RxBool isOwner = false.obs;
 
   RxString firstNameInput = ''.obs;
-  RxString firstNameErrorTxt = ''.obs;
+  RxnString firstNameErrorTxt = RxnString();
   RxString lastNameInput = ''.obs;
-  RxString lastNameErrorTxt = ''.obs;
+  RxnString lastNameErrorTxt = RxnString();
 
   final Rx<LoginFormType> formType = LoginFormType.login.obs;
 
@@ -77,7 +77,7 @@ class LoginController extends GetxController {
         passwordErrorTxt.value = 'Password must be more than 8 characters';
         return false;
       } else {
-        passwordErrorTxt.value = '';
+        passwordErrorTxt.value = null;
         return true;
       }
     } else {
@@ -87,7 +87,7 @@ class LoginController extends GetxController {
 
   bool validatePasswordEqual(String input) {
     if (passwordInput.value == passwordSecondInput.value) {
-      passwordErrorTxt.value = '';
+      passwordErrorTxt.value = null;
       return true;
     } else {
       passwordErrorTxt.value = 'Passwords do not match';
@@ -98,7 +98,7 @@ class LoginController extends GetxController {
   bool validateFirstName(String input) {
     final bool validation = validateStringNotEmpty(input);
     if (validation) {
-      firstNameErrorTxt.value = '';
+      firstNameErrorTxt.value = null;
     } else {
       firstNameErrorTxt.value = '''First name can't be empty ''';
     }
@@ -109,7 +109,7 @@ class LoginController extends GetxController {
   bool validateLasttName(String input) {
     final bool validation = validateStringNotEmpty(input);
     if (validation) {
-      firstNameErrorTxt.value = '';
+      firstNameErrorTxt.value = null;
     } else {
       firstNameErrorTxt.value = '''Last name can't be empty ''';
     }
@@ -148,7 +148,6 @@ class LoginController extends GetxController {
       Get.snackbar(passwordErrorMsg, '',
           snackPosition: SnackPosition.TOP, snackStyle: SnackStyle.FLOATING);
     } else {
-      emailErrorTxt.value = '';
       _authController.login(
         email: emaiInput.value,
         password: passwordInput.value,
