@@ -29,3 +29,4 @@ const String when = 'when?';
 const String logoutBtnTxt = 'Logout';
 const String myHorsesBtnTxt = 'My Horses';
 const String profileSettingsBtnTxt = 'Profile Settings';
+const String choreUnassignedTxt = 'This chore is unassigned';

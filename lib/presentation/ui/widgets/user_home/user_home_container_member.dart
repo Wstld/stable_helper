@@ -14,7 +14,6 @@ class UserHomeContainerMember extends GetWidget<HomeRootController> {
   Widget build(BuildContext context) {
     final DateFormat format = DateFormat('EEEE d MMMM');
     String dateString = format.format(DateTime.now());
-    final user = controller.userData;
     return Obx(() => Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -22,7 +21,6 @@ class UserHomeContainerMember extends GetWidget<HomeRootController> {
               dateString,
               textAlign: TextAlign.center,
             ),
-            verticalSpaceLarge,
             ChoresCarouselWithIndicator(
               list: controller.schedule,
               carouselIndex: controller.memberHomeCarouselIndex,
@@ -32,10 +30,11 @@ class UserHomeContainerMember extends GetWidget<HomeRootController> {
               ElevatedButton(
                   onPressed: () => Get.toNamed(Pages.addHorse.routeName),
                   child: const Text('add horse')),
-            HorseSetupCarousel(
-              stableChores: controller.schedule,
-              carouselIndex: controller.memberHomeCarouselIndex,
-            ),
+            if (controller.horseList.isNotEmpty)
+              HorseSetupCarousel(
+                stableChores: controller.schedule,
+                carouselIndex: controller.memberHomeCarouselIndex,
+              ),
           ],
         ));
   }

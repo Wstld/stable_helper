@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:stable_helper/core/theme/themes.dart';
 import 'package:stable_helper/presentation/controller/home_root_controller.dart';
 import 'package:stable_helper/presentation/ui/ui.dart';
+import 'package:stable_helper/presentation/ui/widgets/sh_appbar.dart';
 
 class HomeRootPage extends GetView {
   const HomeRootPage({Key? key}) : super(key: key);
@@ -11,18 +11,9 @@ class HomeRootPage extends GetView {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          actions: [
-            Builder(
-                builder: (context) => IconButton(
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                    icon: const Icon(Icons.menu))),
-          ],
-        ),
+        appBar: const ShAppBar(),
         drawer: const UserMainMenu(),
         body: Container(
-          padding: pagePadding,
           child: SingleChildScrollView(
             child: GetBuilder<HomeRootController>(
               init: Get.put(HomeRootController(Get.find(), Get.find())),

@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stable_helper/core/constants/nav_consts.dart';
+import 'package:stable_helper/core/constants/string_const.dart';
+import 'package:stable_helper/core/theme/colors.dart';
 import 'package:stable_helper/core/theme/themes.dart';
 import 'package:stable_helper/data/models/models.dart';
 import 'package:stable_helper/data/repository/firestore_repo.dart';
@@ -32,24 +34,92 @@ class ChoresCarouselWithIndicator extends StatelessWidget {
                           _ctrl.fetchAssignee(list[itemIndex].assingneeId!);
                         }
 
-                        return GestureDetector(
-                          onTap: list[pageIndex] is! Feeding
-                              ? () => Get.toNamed(
-                                  Pages.stableChoreDetails.routeName,
-                                  arguments: {'type': list[pageIndex]})
-                              : () => {},
-                          child: Container(
-                            color: Colors.blue,
-                            width: 300,
-                            height: 100,
-                            child: Column(
-                              children: [
-                                Text(list[itemIndex].displayName),
-                                Text(_ctrl.assignee.value != null
-                                    ? '${_ctrl.assignee.value!.firstname} '
-                                        '${_ctrl.assignee.value!.lastname}'
-                                    : ''),
-                              ],
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 8, bottom: 8),
+                          child: GestureDetector(
+                            onTap: list[pageIndex] is! Feeding
+                                ? () => Get.toNamed(
+                                    Pages.stableChoreDetails.routeName,
+                                    arguments: {'type': list[pageIndex]})
+                                : () => {},
+                            child: Material(
+                              elevation: 5,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: ShColors.darkBlue,
+                                    border: Border.all(width: 0.1)),
+                                padding: const EdgeInsets.only(
+                                    top: 10, left: 10, right: 10),
+                                width: Get.width,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Wrap(
+                                      direction: Axis.vertical,
+                                      alignment: WrapAlignment.center,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      children: [
+                                        Text(
+                                          list[itemIndex].time,
+                                          style:
+                                              Get.theme.textTheme.headlineSmall,
+                                        ),
+                                        verticalSpaceTiny,
+                                        Container(
+                                          width: 250,
+                                          height: 50,
+                                          decoration: const BoxDecoration(
+                                            color: ShColors.background,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(5)),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  offset: Offset(0, 1),
+                                                  color: Color.fromARGB(
+                                                      89, 0, 0, 0),
+                                                  blurRadius: 5,
+                                                  spreadRadius: 1)
+                                            ],
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Wrap(
+                                                children: [
+                                                  horizontalSpaceMedium,
+                                                  Text(
+                                                    list[itemIndex].displayName,
+                                                    style: Get.theme.textTheme
+                                                        .titleLarge,
+                                                  ),
+                                                ],
+                                              ),
+                                              Wrap(
+                                                children: const [
+                                                  Icon(
+                                                    Icons.info_outlined,
+                                                  ),
+                                                  horizontalSpaceMedium
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      _ctrl.assignee.value != null
+                                          ? '${_ctrl.assignee.value!.firstname} '
+                                              '${_ctrl.assignee.value!.lastname}'
+                                          : choreUnassignedTxt,
+                                      style: Get.theme.textTheme.titleSmall,
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           ),
                         );
@@ -57,7 +127,7 @@ class ChoresCarouselWithIndicator extends StatelessWidget {
                 },
                 options: CarouselOptions(
                     enlargeCenterPage: true,
-                    aspectRatio: 3.0,
+                    height: 175,
                     enlargeStrategy: CenterPageEnlargeStrategy.scale,
                     enableInfiniteScroll: false,
                     onPageChanged: ((index, reaseon) {
@@ -91,7 +161,17 @@ class ChoresCarouselWithIndicator extends StatelessWidget {
               width: 10,
               margin: const EdgeInsets.only(right: 5),
               decoration: BoxDecoration(
-                  color: index == selectedIndex ? Colors.blue : Colors.blueGrey,
+                  boxShadow: [
+                    BoxShadow(
+                        offset: index == selectedIndex
+                            ? const Offset(0, 1.5)
+                            : const Offset(0, 1),
+                        color: const Color.fromARGB(89, 0, 0, 0),
+                        blurRadius: index == selectedIndex ? 1.5 : 2,
+                        spreadRadius: 1)
+                  ],
+                  color:
+                      index == selectedIndex ? ShColors.darkBlue : Colors.white,
                   borderRadius: const BorderRadius.all(Radius.circular(100))),
             ));
   }
