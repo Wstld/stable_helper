@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stable_helper/core/constants/constants.dart';
 import 'package:stable_helper/core/routes/routes.dart';
+import 'package:stable_helper/core/theme/themes.dart';
 import 'package:stable_helper/presentation/binding/bindings.dart';
 
 class App extends StatelessWidget {
@@ -12,6 +13,7 @@ class App extends StatelessWidget {
     return GetMaterialApp(
       fallbackLocale: const Locale('en', 'US'),
       locale: Get.deviceLocale,
+      theme: AppTheme.light,
       initialBinding: RootBinding(),
       getPages: AppPages.pages,
       initialRoute: Pages.splash.routeName,

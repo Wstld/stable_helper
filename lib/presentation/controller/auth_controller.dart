@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:stable_helper/core/constants/constants.dart';
 import 'package:stable_helper/core/constants/enums.dart';
-import 'package:stable_helper/core/constants/nav_consts.dart';
 import 'package:stable_helper/data/repository/auth_repo.dart';
 
 class AuthController extends GetxController {
@@ -31,7 +31,7 @@ class AuthController extends GetxController {
       await _authRepo.firebaseLogin(email, password);
       Get.offAllNamed(Pages.home.routeName);
     } catch (e) {
-      Get.snackbar(e.toString(), '');
+      Get.snackbar(loginErrorMsg, '');
     }
   }
 
