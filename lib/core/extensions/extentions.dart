@@ -30,3 +30,13 @@ extension DateTimeExtension on DateTime {
     return year == other.year && month == other.month && day == other.day;
   }
 }
+
+extension StringX on String {
+  String get capitalized {
+    if (length > 1) {
+      return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+    } else {
+      return toUpperCase();
+    }
+  }
+}
