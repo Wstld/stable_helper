@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stable_helper/core/constants/enums.dart';
@@ -7,20 +5,19 @@ import 'package:stable_helper/core/extensions/extentions.dart';
 import 'package:stable_helper/core/theme/stables_icon_icons.dart';
 import 'package:stable_helper/data/models/models.dart';
 import 'package:stable_helper/data/repository/firestore_repo.dart';
+import 'package:stable_helper/presentation/controller/home_root_controller.dart';
 import 'package:stable_helper/presentation/ui/widgets/user_home/horse_daily_setup_gird_tile.dart';
 
 class DailyHorseSetupController extends GetxController {
   final FirestoreRepo _firestoreRepo;
+  final HomeRootController _homeRootController;
   DailyHorseSetupController(
-    this._firestoreRepo, {
+    this._firestoreRepo,
+    this._homeRootController, {
     required this.chore,
-    required Horse horse,
-  }) {
-    setHorseOptions(horse);
-    setTiles();
-    _horse.value = horse;
-  }
+  });
 
+  final RxInt horseIndex = RxInt(0);
   final StableChore chore;
   final Rxn<Horse> _horse = Rxn<Horse>();
   final RxBool feed = RxBool(true);
@@ -161,7 +158,7 @@ class DailyHorseSetupController extends GetxController {
   }
 
   void saveTempSettings() {
-    final horse = _horse.value!;
+    final Horse horse = _horse.value!;
 
     List<String> listSetup = horse.temporarySetup?.keys.toList() ?? [];
     TemporaryHorseSetup? temporaryHorseSetup;
@@ -208,18 +205,24 @@ class DailyHorseSetupController extends GetxController {
 
   void setHorse(Horse horse) {
     _horse.value = horse;
-    _horse.refresh();
+    setHorseOptions(horse);
+    setTiles();
+    update();
   }
 
   @override
   void onInit() {
-    log('test');
+    setHorse(_homeRootController.horseList[horseIndex.value]);
 
-    update();
-    _horse.listen((horse) {
-      setHorseOptions(horse!);
-      setTiles();
-      update();
+    horseIndex.listen((index) {
+      setHorse(_homeRootController.horseList[index]);
+    });
+
+    // reset index on horse deletion.
+    _homeRootController.userData.listen((userData) {
+      if (userData!.horses!.entries.length < 2) {
+        horseIndex.value = 0;
+      }
     });
 
     super.onInit();

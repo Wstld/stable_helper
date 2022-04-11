@@ -1,14 +1,15 @@
 import 'package:get/get.dart';
 import 'package:stable_helper/data/models/models.dart';
-import 'package:stable_helper/data/repository/auth_repo.dart';
 import 'package:stable_helper/data/repository/firestore_repo.dart';
 import 'package:stable_helper/presentation/controller/home_root_controller.dart';
 
 class MyHorsesPageController extends GetxController
     with StateMixin<List<Horse>> {
   final FirestoreRepo _firestoreRepo;
-  final AuthRepo _authRepo;
-  MyHorsesPageController(this._firestoreRepo, this._authRepo);
+
+  MyHorsesPageController(
+    this._firestoreRepo,
+  );
 
   void deleteHorse(String horseId) {
     _firestoreRepo.deleteHorse(
