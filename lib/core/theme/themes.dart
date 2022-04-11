@@ -10,17 +10,17 @@ class AppTheme {
 
     final TextTheme lightTextTheme = base.textTheme.copyWith(
       displayLarge: GoogleFonts.poppins(
-          color: ShColors.black, fontWeight: FontWeight.w500),
+          color: ShColors.black, fontWeight: FontWeight.w300),
       displayMedium: GoogleFonts.poppins(
-          color: ShColors.black, fontWeight: FontWeight.w500),
+          color: ShColors.black, fontWeight: FontWeight.w300),
       displaySmall: GoogleFonts.poppins(
-          color: ShColors.black, fontWeight: FontWeight.w500),
+          color: ShColors.black, fontWeight: FontWeight.w300),
       headlineLarge: GoogleFonts.poppins(
-          color: ShColors.black, fontWeight: FontWeight.w500),
+          color: ShColors.black, fontWeight: FontWeight.w300),
       headlineMedium: GoogleFonts.poppins(
-          color: ShColors.black, fontWeight: FontWeight.w500),
+          color: ShColors.black, fontWeight: FontWeight.w300),
       headlineSmall: GoogleFonts.poppins(
-          color: ShColors.black, fontWeight: FontWeight.w500),
+          color: ShColors.black, fontWeight: FontWeight.w300),
       titleLarge: GoogleFonts.poppins(
           color: ShColors.black, fontWeight: FontWeight.w400),
       titleMedium: GoogleFonts.poppins(
@@ -44,13 +44,13 @@ class AppTheme {
     final ColorScheme _colorScheme = base.colorScheme.copyWith(
       primary: ShColors.darkPink,
       secondary: ShColors.lightBlue,
-      background: ShColors.lightGreen,
+      background: ShColors.sand,
     );
 
     final ThemeData lightTheme = base.copyWith(
       textTheme: lightTextTheme,
       colorScheme: _colorScheme,
-      scaffoldBackgroundColor: ShColors.lightGreen,
+      scaffoldBackgroundColor: ShColors.background,
       inputDecorationTheme: InputDecorationTheme(
         errorStyle: const TextStyle(
           height: 1,
