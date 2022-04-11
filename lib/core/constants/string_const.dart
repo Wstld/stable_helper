@@ -21,6 +21,7 @@ const String inSideDressInfoTxt =
 const String concentrateFoodInfoTxt = 'Takes concentrats';
 const String horseStabledAtMemberStableToggleTxt =
     'Stabled at my memeber stable';
+const saveChanges = 'Save';
 
 const String inputHorseNameHint = 'Name';
 const String when = 'when?';
