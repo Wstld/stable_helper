@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stable_helper/core/constants/nav_consts.dart';
+import 'package:stable_helper/core/theme/colors.dart';
 import 'package:stable_helper/core/theme/ui_helper.dart';
 import 'package:stable_helper/data/models/models.dart';
+import 'package:stable_helper/data/repository/firestore_repo.dart';
 import 'package:stable_helper/presentation/controller/home_root_controller.dart';
 import 'package:stable_helper/presentation/controller/my_horses_page_controller.dart';
 import 'package:stable_helper/presentation/ui/ui.dart';
+import 'package:stable_helper/presentation/ui/widgets/sh_appbar.dart';
 import 'package:stable_helper/presentation/ui/widgets/user_home/horse_list_tile.dart';
 
 class MyHorsesPage extends StatelessWidget {
@@ -15,27 +18,18 @@ class MyHorsesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: const Icon(Icons.chevron_left),
-            onPressed: () => Get.back(),
-          ),
-          actions: [
-            Builder(
-                builder: (context) => IconButton(
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                    icon: const Icon(Icons.menu))),
-          ],
-        ),
+        appBar: const ShAppBar(showBackBtn: true),
         drawer: const UserMainMenu(),
         body: GetX<MyHorsesPageController>(
-            init: MyHorsesPageController(Get.find(), Get.find()),
+            init: MyHorsesPageController(
+              Get.find<FirestoreRepo>(),
+            ),
             builder: (controller) {
               List<Horse> listOfHorses =
                   Get.find<HomeRootController>().horseList;
               return Column(
                 children: [
+                  verticalSpaceMedium,
                   ListView.separated(
                     separatorBuilder: ((context, index) => verticalSpaceSmall),
                     shrinkWrap: true,
@@ -49,21 +43,14 @@ class MyHorsesPage extends StatelessWidget {
                 ],
               );
             }),
-        bottomSheet: Row(
-          children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: FloatingActionButton(
-                    onPressed: (() => Get.toNamed(Pages.addHorse.routeName)),
-                    child: const Icon(Icons.add),
-                  ),
-                ),
-              ],
-            ),
-          ],
-          mainAxisAlignment: MainAxisAlignment.center,
+        floatingActionButton: FloatingActionButton.large(
+          backgroundColor: ShColors.darkPink,
+          onPressed: (() => Get.toNamed(Pages.addHorse.routeName)),
+          child: const Icon(
+            Icons.add,
+            size: 70,
+          ),
+          materialTapTargetSize: MaterialTapTargetSize.padded,
         ),
       ),
     );
