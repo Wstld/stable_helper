@@ -26,37 +26,66 @@ class AddHorseSetupGridTile extends GetView<AddOrUpdateHorseController> {
 
   @override
   Widget build(BuildContext context) {
-    final _cover = position == HorsePosition.inside
-        ? controller.coverInside
-        : controller.coverOutside;
-    final _protection = position == HorsePosition.inside
-        ? controller.protectionInside
-        : controller.portectionOutside;
     return GestureDetector(
       onTap: () => controller.updateHorseSetup(
           position: position,
           protection: protection,
           cover: coverSetup,
           concentrateFeed: concentrateFeed),
-      child: GridTile(
-        child: Container(
-          color: Colors.amber,
-          child: Column(
-            children: [
-              Obx(() => Icon(icon,
-                  color: coverSetup == _cover.value ||
-                          protection == _protection.value ||
-                          concentrateFeed ==
-                                  controller.timeForConcentrate.value &&
-                              controller.timeForConcentrate.value !=
-                                  HorseConcentrateFeed.none
-                      ? Colors.green
-                      : Colors.black)),
-              Text(title)
-            ],
-          ),
-        ),
-      ),
+      child: Obx(() => Material(
+            elevation: isSelected() ? 10 : 2,
+            child: GridTile(
+              child: Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    color: isSelected()
+                        ? const Color.fromARGB(255, 225, 255, 222)
+                        : const Color.fromARGB(255, 242, 255, 251),
+                    border: Border.all(
+                        color: isSelected()
+                            ? const Color.fromARGB(255, 118, 118, 118)
+                            : const Color.fromARGB(255, 174, 174, 174),
+                        width: 1),
+                    gradient: isSelected()
+                        ? const LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                                Color.fromARGB(255, 181, 253, 231),
+                                Color.fromARGB(255, 210, 251, 243),
+                                Color.fromARGB(92, 172, 255, 200),
+                                Color.fromARGB(255, 210, 251, 243),
+                                Color.fromARGB(255, 181, 253, 231),
+                              ])
+                        : null),
+                child: Column(
+                  children: [
+                    Icon(
+                      icon,
+                      size: icon == Icons.timer ? 50 : 80,
+                      color: isSelected()
+                          ? const Color.fromARGB(255, 21, 156, 23)
+                          : const Color.fromARGB(255, 0, 0, 0),
+                    ),
+                    Text(title)
+                  ],
+                ),
+              ),
+            ),
+          )),
     );
+  }
+
+  bool isSelected() {
+    final _cover = position == HorsePosition.inside
+        ? controller.coverInside
+        : controller.coverOutside;
+    final _protection = position == HorsePosition.inside
+        ? controller.protectionInside
+        : controller.portectionOutside;
+    return coverSetup == _cover.value ||
+        protection == _protection.value ||
+        concentrateFeed == controller.timeForConcentrate.value &&
+            controller.timeForConcentrate.value != HorseConcentrateFeed.none;
   }
 }

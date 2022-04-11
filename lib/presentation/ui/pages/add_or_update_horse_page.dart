@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stable_helper/core/constants/constants.dart';
 import 'package:stable_helper/core/constants/enums.dart';
+import 'package:stable_helper/core/theme/colors.dart';
+import 'package:stable_helper/core/theme/stables_icon_icons.dart';
 import 'package:stable_helper/core/theme/themes.dart';
 import 'package:stable_helper/presentation/controller/add_or_update_horse_controller.dart';
 import 'package:stable_helper/presentation/ui/ui.dart';
+import 'package:stable_helper/presentation/ui/widgets/sh_appbar.dart';
 import 'package:stable_helper/presentation/ui/widgets/user_home/add_horse_setup_grid_tile.dart';
 
 class AddOrUpdateHorsePage extends StatelessWidget {
@@ -27,99 +30,128 @@ class AddOrUpdateHorsePage extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: const Icon(Icons.chevron_left),
-            onPressed: () => Get.back(),
-          ),
-          actions: [
-            Builder(
-                builder: (context) => IconButton(
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                    icon: const Icon(Icons.menu))),
-          ],
-        ),
+        backgroundColor: ShColors.darkBlue,
+        appBar: const ShAppBar(showBackBtn: true),
         drawer: const UserMainMenu(),
         body: GetX<AddOrUpdateHorseController>(
             init: AddOrUpdateHorseController(Get.find(), Get.find()),
             builder: (_ctrl) {
-              return SingleChildScrollView(
-                controller: _scrollController,
-                clipBehavior: Clip.antiAlias,
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _ctrl.nameInputController,
-                      onChanged: (value) => _ctrl.name.value = value,
-                      decoration:
-                          const InputDecoration(hintText: inputHorseNameHint),
-                    ),
-                    const Text(outSideDressInfoTxt),
-                    GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: outsideList.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                mainAxisSpacing: 1,
-                                crossAxisSpacing: 1),
-                        itemBuilder: (context, index) => outsideList[index]),
-                    const Text(inSideDressInfoTxt),
-                    GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: insideList.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                mainAxisSpacing: 1,
-                                crossAxisSpacing: 1),
-                        itemBuilder: (context, index) => insideList[index]),
-                    Row(
-                      children: [
-                        const Text(horseStabledAtMemberStableToggleTxt),
-                        Switch(
-                            value: _ctrl.horseIsStabledAtUserMemberStable.value,
-                            onChanged: (val) => {
-                                  _ctrl.horseIsStabledAtUserMemberStable.value =
-                                      val,
-                                }),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        const Text(concentrateFoodInfoTxt),
-                        Switch(
-                            value: _ctrl.concentrateSelected.value,
-                            onChanged: (val) => {
-                                  _ctrl.concentrateSelected.value = val,
-                                  scrollToBottom(),
-                                }),
-                      ],
-                    ),
-                    if (_ctrl.concentrateSelected.value) ...[
-                      const Text(when),
+              return Container(
+                padding: const EdgeInsets.all(8),
+                child: SingleChildScrollView(
+                  controller: _scrollController,
+                  clipBehavior: Clip.antiAlias,
+                  child: Column(
+                    children: [
+                      verticalSpaceMedium,
+                      TextField(
+                        controller: _ctrl.nameInputController,
+                        onChanged: (value) => _ctrl.name.value = value,
+                        decoration: InputDecoration(
+                            hintText: inputHorseNameHint,
+                            icon: _ctrl.name.value.isNotEmpty
+                                ? const Icon(Icons.edit)
+                                : null),
+                      ),
+                      verticalSpaceMedium,
+                      Text(
+                        outSideDressInfoTxt,
+                        style: Get.theme.textTheme.titleMedium,
+                      ),
+                      const Divider(
+                        color: ShColors.lightBlue,
+                        thickness: 1,
+                      ),
+                      verticalSpaceSmall,
                       GridView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: timeSlots.length,
+                          itemCount: outsideList.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 4,
-                                  mainAxisSpacing: 1,
-                                  crossAxisSpacing: 1),
-                          itemBuilder: (context, index) => timeSlots[index]),
+                                  crossAxisCount: 3,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10),
+                          itemBuilder: (context, index) => outsideList[index]),
+                      verticalSpaceLarge,
+                      Text(
+                        inSideDressInfoTxt,
+                        style: Get.theme.textTheme.titleMedium,
+                      ),
+                      const Divider(
+                        color: ShColors.lightBlue,
+                        thickness: 1,
+                      ),
+                      verticalSpaceSmall,
+                      GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: insideList.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 10),
+                          itemBuilder: (context, index) => insideList[index]),
+                      Row(
+                        children: [
+                          Text(horseStabledAtMemberStableToggleTxt,
+                              style: Get.theme.textTheme.titleMedium),
+                          Switch(
+                              value:
+                                  _ctrl.horseIsStabledAtUserMemberStable.value,
+                              onChanged: (val) => {
+                                    _ctrl.horseIsStabledAtUserMemberStable
+                                        .value = val,
+                                  }),
+                        ],
+                      ),
+                      if (_ctrl.concentrateSelected.value) ...[
+                        verticalSpaceMedium,
+                        const Divider(
+                          color: ShColors.lightBlue,
+                          thickness: 1,
+                        )
+                      ],
+                      Row(
+                        children: [
+                          Text(concentrateFoodInfoTxt,
+                              style: Get.theme.textTheme.titleMedium),
+                          Switch(
+                              value: _ctrl.concentrateSelected.value,
+                              onChanged: (val) => {
+                                    _ctrl.concentrateSelected.value = val,
+                                    scrollToBottom(),
+                                  }),
+                        ],
+                      ),
+                      if (_ctrl.concentrateSelected.value) ...[
+                        Text(
+                          when,
+                          style: Get.theme.textTheme.titleMedium,
+                        ),
+                        verticalSpaceSmall,
+                        GridView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: timeSlots.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 4,
+                                    mainAxisSpacing: 10,
+                                    crossAxisSpacing: 10),
+                            itemBuilder: (context, index) => timeSlots[index]),
+                      ],
+                      verticalSpaceMedium,
+                      ElevatedButton(
+                          onPressed: () {
+                            _ctrl.saveHorseToDb();
+                            Get.back();
+                          },
+                          child: const Text(saveChanges)),
+                      verticalSpaceLarge
                     ],
-                    ElevatedButton(
-                        onPressed: () {
-                          _ctrl.saveHorseToDb();
-                          Get.back();
-                        },
-                        child: const Text('save')),
-                    verticalSpaceLarge
-                  ],
+                  ),
                 ),
               );
             }),
@@ -130,37 +162,37 @@ class AddOrUpdateHorsePage extends StatelessWidget {
   List<AddHorseSetupGridTile> getSetupTileList(HorsePosition position) {
     return [
       AddHorseSetupGridTile(
-        icon: Icons.horizontal_rule_sharp,
+        icon: StablesIcon.protectionBack,
         title: 'back and front',
         position: position,
         protection: HorseProtectionSetup.both,
       ),
       AddHorseSetupGridTile(
-        icon: Icons.ac_unit_sharp,
+        icon: StablesIcon.protectionBack,
         title: 'back',
         position: position,
         protection: HorseProtectionSetup.back,
       ),
       AddHorseSetupGridTile(
-        icon: Icons.ac_unit_sharp,
+        icon: StablesIcon.protectionFront,
         title: 'front',
         position: position,
         protection: HorseProtectionSetup.front,
       ),
       AddHorseSetupGridTile(
-        icon: Icons.ac_unit_sharp,
+        icon: StablesIcon.protectionNone,
         title: 'no cover',
         position: position,
         coverSetup: HorseCoverSetup.none,
       ),
       AddHorseSetupGridTile(
-        icon: Icons.ac_unit_sharp,
+        icon: StablesIcon.coverSummer,
         title: 'summer cover',
         position: position,
         coverSetup: HorseCoverSetup.summer,
       ),
       AddHorseSetupGridTile(
-        icon: Icons.ac_unit_sharp,
+        icon: StablesIcon.coverWinter,
         title: 'winter cover',
         position: position,
         coverSetup: HorseCoverSetup.winter,

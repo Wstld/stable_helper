@@ -203,10 +203,13 @@ class DailyHorseSetupController extends GetxController {
     setTiles();
   }
 
-  void setHorse(Horse horse) {
+  void setHorse(Horse? horse) {
     _horse.value = horse;
-    setHorseOptions(horse);
-    setTiles();
+    if (horse != null) {
+      setHorseOptions(horse);
+      setTiles();
+    }
+
     update();
   }
 
@@ -215,7 +218,11 @@ class DailyHorseSetupController extends GetxController {
     setHorse(_homeRootController.horseList[horseIndex.value]);
 
     horseIndex.listen((index) {
-      setHorse(_homeRootController.horseList[index]);
+      if (_homeRootController.horseList.isNotEmpty) {
+        setHorse(_homeRootController.horseList[index]);
+      } else {
+        setHorse(null);
+      }
     });
 
     // reset index on horse deletion.
