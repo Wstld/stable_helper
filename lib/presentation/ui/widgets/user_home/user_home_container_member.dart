@@ -32,6 +32,7 @@ class UserHomeContainerMember extends GetWidget<HomeRootController> {
                   child: const Text('add horse')),
             if (controller.horseList.isNotEmpty)
               HorseSetupCarousel(
+                horseList: controller.horseList,
                 stableChores: controller.schedule,
                 carouselIndex: controller.memberHomeCarouselIndex,
               ),

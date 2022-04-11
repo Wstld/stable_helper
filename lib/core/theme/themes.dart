@@ -48,24 +48,34 @@ class AppTheme {
     );
 
     final ThemeData lightTheme = base.copyWith(
-      textTheme: lightTextTheme,
-      colorScheme: _colorScheme,
-      scaffoldBackgroundColor: ShColors.background,
-      inputDecorationTheme: InputDecorationTheme(
-        errorStyle: const TextStyle(
-          height: 1,
+        textTheme: lightTextTheme,
+        colorScheme: _colorScheme,
+        scaffoldBackgroundColor: ShColors.background,
+        inputDecorationTheme: InputDecorationTheme(
+          errorStyle: const TextStyle(
+            color: Colors.red,
+            height: 1,
+          ),
+          errorMaxLines: 2,
+          contentPadding:
+              const EdgeInsets.only(left: 20, top: 15, bottom: 15, right: 20),
+          fillColor: Colors.white,
+          focusColor: ShColors.black,
+          filled: true,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(9),
+              borderSide: BorderSide.none),
         ),
-        errorMaxLines: 2,
-        contentPadding:
-            const EdgeInsets.only(left: 20, top: 15, bottom: 15, right: 20),
-        fillColor: Colors.white,
-        focusColor: ShColors.black,
-        filled: true,
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(9),
-            borderSide: BorderSide.none),
-      ),
-    );
+        switchTheme: SwitchThemeData(
+          trackColor: MaterialStateProperty.all(ShColors.sand),
+          thumbColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.selected)) {
+              return ShColors.darkPink;
+            } else {
+              return const Color.fromARGB(255, 224, 238, 211);
+            }
+          }),
+        ));
 
     return lightTheme;
   }

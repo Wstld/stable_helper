@@ -9,16 +9,21 @@ import 'package:stable_helper/data/repository/firestore_repo.dart';
 import 'package:stable_helper/presentation/controller/daily_horse_setup_controller.dart';
 import 'package:stable_helper/presentation/controller/home_root_controller.dart';
 
-class HorseSetupCarousel extends GetView<HomeRootController> {
-  HorseSetupCarousel(
-      {Key? key, required this.stableChores, required this.carouselIndex})
+class HorseSetupCarousel extends StatelessWidget {
+  const HorseSetupCarousel(
+      {Key? key,
+      required this.stableChores,
+      required this.carouselIndex,
+      required this.horseList})
       : super(key: key);
   final List<StableChore> stableChores;
-  final RxInt horseIndex = RxInt(0);
+  final List<Horse> horseList;
+
   final RxInt carouselIndex;
 
   @override
   Widget build(BuildContext context) {
+    final List<Horse> horseList = Get.find<HomeRootController>().horseList;
     return Obx(
       () => Container(
         padding: const EdgeInsets.all(10),
@@ -32,74 +37,69 @@ class HorseSetupCarousel extends GetView<HomeRootController> {
             if (stableChores[pageIndex] is Stableing ||
                 stableChores[pageIndex] is TurnOut) {
               return GetX<DailyHorseSetupController>(
-                  init: DailyHorseSetupController(Get.find<FirestoreRepo>(),
-                      horse: controller.horseList[horseIndex.value],
+                  init: DailyHorseSetupController(
+                      Get.find<FirestoreRepo>(), Get.find<HomeRootController>(),
                       chore: stableChores[pageIndex]),
                   tag: pageIndex.toString(),
                   builder: (_ctrl) {
-                    return Column(
-                      children: [
-                        Text(
-                          controller
-                              .horseList[horseIndex.value].name.capitalized,
-                          style: Get.theme.textTheme.titleMedium,
-                        ),
-                        verticalSpaceSmall,
-                        Expanded(
-                          child: GridView.builder(
-                              itemCount: _ctrl.optionsList.length,
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                              ),
-                              itemBuilder: (context, index) => Obx(
-                                    () => _ctrl.optionsList[index],
-                                  )),
-                        ),
-                        if (controller.horseList.isEmpty) verticalSpaceLarge,
-                        if (controller.horseList.length > 1)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                    return _ctrl.horseIndex.value != null
+                        ? Column(
                             children: [
-                              IconButton(
-                                  iconSize: 40,
-                                  onPressed: horseIndex.value > 0
-                                      ? () {
-                                          horseIndex.value -= 1;
-                                          _ctrl.setHorse(controller
-                                              .horseList[horseIndex.value]);
-                                        }
-                                      : () => {},
-                                  icon: Icon(
-                                    Icons.chevron_left,
-                                    color: horseIndex.value > 0
-                                        ? Colors.black
-                                        : Colors.grey,
-                                  )),
-                              const Text('Swap horse'),
-                              IconButton(
-                                  iconSize: 40,
-                                  onPressed: horseIndex.value <
-                                          controller.horseList.length - 1
-                                      ? () {
-                                          horseIndex.value += 1;
-                                          _ctrl.setHorse(controller
-                                              .horseList[horseIndex.value]);
-                                        }
-                                      : () => {},
-                                  icon: Icon(
-                                    Icons.chevron_right,
-                                    color: horseIndex.value <
-                                            controller.horseList.length - 1
-                                        ? Colors.black
-                                        : Colors.grey,
-                                  )),
+                              Text(
+                                horseList[_ctrl.horseIndex.value]
+                                    .name
+                                    .capitalized,
+                                style: Get.theme.textTheme.titleMedium,
+                              ),
+                              verticalSpaceSmall,
+                              Expanded(
+                                child: GridView.builder(
+                                    itemCount: _ctrl.optionsList.length,
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3,
+                                      crossAxisSpacing: 10,
+                                      mainAxisSpacing: 10,
+                                    ),
+                                    itemBuilder: (context, index) => Obx(
+                                          () => _ctrl.optionsList[index],
+                                        )),
+                              ),
+                              if (horseList.isEmpty) verticalSpaceLarge,
+                              if (horseList.length > 1)
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
+                                        iconSize: 40,
+                                        onPressed: _ctrl.horseIndex.value > 0
+                                            ? () => _ctrl.horseIndex.value -= 1
+                                            : () => {},
+                                        icon: Icon(
+                                          Icons.chevron_left,
+                                          color: _ctrl.horseIndex.value > 0
+                                              ? Colors.black
+                                              : Colors.grey,
+                                        )),
+                                    const Text('Swap horse'),
+                                    IconButton(
+                                        iconSize: 40,
+                                        onPressed: _ctrl.horseIndex.value <
+                                                horseList.length - 1
+                                            ? () => _ctrl.horseIndex.value += 1
+                                            : () => {},
+                                        icon: Icon(
+                                          Icons.chevron_right,
+                                          color: _ctrl.horseIndex.value <
+                                                  horseList.length - 1
+                                              ? Colors.black
+                                              : Colors.grey,
+                                        )),
+                                  ],
+                                ),
                             ],
-                          ),
-                      ],
-                    );
+                          )
+                        : Container();
                   });
             } else {
               return Container();
@@ -111,7 +111,8 @@ class HorseSetupCarousel extends GetView<HomeRootController> {
               viewportFraction: 1,
               enableInfiniteScroll: false,
               scrollPhysics: const NeverScrollableScrollPhysics()),
-          carouselController: controller.horseSetupcarouselController,
+          carouselController:
+              Get.find<HomeRootController>().horseSetupcarouselController,
         ),
       ),
     );
