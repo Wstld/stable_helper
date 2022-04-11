@@ -30,3 +30,5 @@ const String logoutBtnTxt = 'Logout';
 const String myHorsesBtnTxt = 'My Horses';
 const String profileSettingsBtnTxt = 'Profile Settings';
 const String choreUnassignedTxt = 'This chore is unassigned';
+const String notAMemberTxt =
+    '''You are currently not a member at any stable, ask your stable manager to add you to their stable''';

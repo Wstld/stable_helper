@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:stable_helper/core/theme/colors.dart';
 
 class ShAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const ShAppBar({Key? key}) : super(key: key);
+  final bool showBackBtn;
+  const ShAppBar({Key? key, required this.showBackBtn}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: Alignment.topLeft,
       children: [
         Container(
           width: Get.width,
@@ -18,17 +18,35 @@ class ShAppBar extends StatelessWidget implements PreferredSizeWidget {
             color: ShColors.lightBlue,
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: showBackBtn
+                ? MainAxisAlignment.spaceBetween
+                : MainAxisAlignment.end,
             children: [
+              if (showBackBtn)
+                IconButton(
+                  onPressed: () => Get.back(),
+                  icon: const Icon(Icons.chevron_left_rounded),
+                  iconSize: 35,
+                ),
               const Text('ESQY'),
               IconButton(
+                  iconSize: 30,
                   onPressed: () => Scaffold.of(context).openDrawer(),
-                  icon: const Icon(Icons.menu))
+                  icon: const Icon(Icons.menu_rounded))
             ],
           ),
         ),
-        Image.asset(
-          'lib/core/assets/MainIcon.png',
+        Row(
+          mainAxisAlignment:
+              showBackBtn ? MainAxisAlignment.center : MainAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: Image.asset(
+                'lib/core/assets/MainIcon.png',
+              ),
+            ),
+          ],
         ),
       ],
     );

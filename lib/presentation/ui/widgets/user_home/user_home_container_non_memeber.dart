@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stable_helper/core/constants/string_const.dart';
 import 'package:stable_helper/core/theme/themes.dart';
 
 class UserHomeContainerNonMember extends StatelessWidget {
@@ -6,14 +7,17 @@ class UserHomeContainerNonMember extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        verticalSpaceExtraLarge,
-        Text(
-          '''You are currently not a member at any stable, ask your stable manager to add you to their stable''',
-          textAlign: TextAlign.center,
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: const [
+          verticalSpaceExtraLarge,
+          Text(
+            notAMemberTxt,
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }

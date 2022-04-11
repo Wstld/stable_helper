@@ -11,18 +11,18 @@ class HomeRootPage extends GetView {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: const ShAppBar(),
+        appBar: const ShAppBar(
+          showBackBtn: false,
+        ),
         drawer: const UserMainMenu(),
-        body: Container(
-          child: SingleChildScrollView(
-            child: GetBuilder<HomeRootController>(
-              init: Get.put(HomeRootController(Get.find(), Get.find())),
-              builder: (controller) => controller.obx(
-                (userData) => userData!.stablesId == null
-                    ? const UserHomeContainerNonMember()
-                    : const UserHomeContainerMember(),
-                onEmpty: const Text('Show on boarding'),
-              ),
+        body: SingleChildScrollView(
+          child: GetBuilder<HomeRootController>(
+            init: Get.put(HomeRootController(Get.find(), Get.find())),
+            builder: (controller) => controller.obx(
+              (userData) => userData!.stablesId == null
+                  ? const UserHomeContainerNonMember()
+                  : const UserHomeContainerMember(),
+              onEmpty: const Text('Show on boarding'),
             ),
           ),
         ),
