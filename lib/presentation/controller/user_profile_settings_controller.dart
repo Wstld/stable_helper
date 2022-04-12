@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:stable_helper/core/theme/colors.dart';
 import 'package:stable_helper/data/models/models.dart';
 import 'package:stable_helper/data/repository/firestore_repo.dart';
 import 'package:stable_helper/presentation/controller/home_root_controller.dart';
@@ -39,9 +40,11 @@ class UserProfileSettingsController extends GetxController {
   void removeUserFromCurrentStables() {
     Get.defaultDialog(
         title: 'Are You Sure?',
-        textConfirm: 'yes',
-        textCancel: 'back',
+        textConfirm: 'YES',
+        textCancel: 'BACK',
+        buttonColor: ShColors.darkBlue,
         confirmTextColor: Colors.white,
+        cancelTextColor: Colors.black,
         middleText: '''this can't be undone''',
         onConfirm: () {
           _firestoreRepo.removeUserFromCurrentStable(
