@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:stable_helper/core/constants/constants.dart';
 import 'package:stable_helper/core/routes/routes.dart';
@@ -10,6 +11,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Hide native navigationbar, show it on edge swipe.
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return GetMaterialApp(
       fallbackLocale: const Locale('en', 'US'),
       locale: Get.deviceLocale,
