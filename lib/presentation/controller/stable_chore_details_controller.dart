@@ -24,7 +24,8 @@ class StableChoreDetailsController extends GetxController
         List<Horse> stabledHorses = await _firestoreRepo
             .fetchAllHorsesAtStables(stables.members!, stables.id);
         for (Horse horse in stabledHorses) {
-          if (horse.temporarySetup != null) {
+          if (horse.temporarySetup != null &&
+              horse.temporarySetup!.keys.contains(DateTime.now().getDate)) {
             //if ther is temp setup create chore details with temp
             List<TemporaryHorseSetup> todaysSetup = horse.temporarySetup!.values
                 .toList()
@@ -68,7 +69,9 @@ class StableChoreDetailsController extends GetxController
       }
       log(choreDetailsList.toString());
       change(choreDetailsList, status: RxStatus.success());
-    } catch (e) {}
+    } catch (e) {
+      log(e.toString());
+    }
     super.onInit();
   }
 }

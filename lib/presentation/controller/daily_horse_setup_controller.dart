@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stable_helper/core/constants/enums.dart';
@@ -8,7 +10,8 @@ import 'package:stable_helper/data/repository/firestore_repo.dart';
 import 'package:stable_helper/presentation/controller/home_root_controller.dart';
 import 'package:stable_helper/presentation/ui/widgets/user_home/horse_daily_setup_gird_tile.dart';
 
-class DailyHorseSetupController extends GetxController {
+class DailyHorseSetupController extends FullLifeCycleController
+    with FullLifeCycleMixin {
   final FirestoreRepo _firestoreRepo;
   final HomeRootController _homeRootController;
   DailyHorseSetupController(
@@ -213,9 +216,23 @@ class DailyHorseSetupController extends GetxController {
     update();
   }
 
+  void refreshData() {
+    log('refreshing daily setup tiles');
+    setHorse(_homeRootController.horseList[horseIndex.value]);
+    setTiles();
+    update();
+  }
+
   @override
   void onInit() {
     setHorse(_homeRootController.horseList[horseIndex.value]);
+
+    // reset index on horse deletion.
+    _homeRootController.userData.listen((userData) {
+      if (userData!.horses!.entries.length < 2) {
+        horseIndex.value = 0;
+      }
+    });
 
     horseIndex.listen((index) {
       if (_homeRootController.horseList.isNotEmpty) {
@@ -225,13 +242,20 @@ class DailyHorseSetupController extends GetxController {
       }
     });
 
-    // reset index on horse deletion.
-    _homeRootController.userData.listen((userData) {
-      if (userData!.horses!.entries.length < 2) {
-        horseIndex.value = 0;
-      }
-    });
-
     super.onInit();
+  }
+
+  @override
+  void onDetached() {}
+
+  @override
+  void onInactive() {}
+
+  @override
+  void onPaused() {}
+
+  @override
+  void onResumed() {
+    refreshData();
   }
 }

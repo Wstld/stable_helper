@@ -1,6 +1,12 @@
+import 'package:intl/intl.dart';
 import 'package:stable_helper/core/constants/enums.dart';
 
 extension DateTimeExtension on DateTime {
+  String get dateString {
+    final DateFormat format = DateFormat('EEEE d MMMM');
+    return format.format(this);
+  }
+
   Days get getDay {
     switch (weekday) {
       case 1:
