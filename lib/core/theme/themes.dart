@@ -75,7 +75,9 @@ class AppTheme {
               return const Color.fromARGB(255, 224, 238, 211);
             }
           }),
-        ));
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(minimumSize: const Size(130, 40))));
 
     return lightTheme;
   }
