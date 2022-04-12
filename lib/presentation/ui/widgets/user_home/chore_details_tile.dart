@@ -76,18 +76,18 @@ class ChoreDetailsTile extends StatelessWidget {
     List<Widget> list = [];
     if (type is Stableing) {
       if (stableOrTurnOut) {
-        list.add(const Material(
-            color: Colors.white,
+        list.add(Material(
+            color: iconBackgroundColor,
             elevation: 5,
-            child: Icon(
+            child: const Icon(
               StablesIcon.putInside,
               size: 70,
             )));
       } else {
-        list.add(const Material(
-            color: Colors.white,
+        list.add(Material(
+            color: iconBackgroundColor,
             elevation: 5,
-            child: Icon(
+            child: const Icon(
               StablesIcon.putOutside,
               size: 70,
             )));

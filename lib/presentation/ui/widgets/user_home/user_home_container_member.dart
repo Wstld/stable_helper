@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:stable_helper/core/constants/nav_consts.dart';
 import 'package:stable_helper/core/theme/themes.dart';
 import 'package:stable_helper/presentation/controller/home_root_controller.dart';
@@ -12,13 +11,11 @@ class UserHomeContainerMember extends GetWidget<HomeRootController> {
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat format = DateFormat('EEEE d MMMM');
-    String dateString = format.format(DateTime.now());
     return Obx(() => Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              dateString,
+              controller.dateString.value,
               textAlign: TextAlign.center,
             ),
             ChoresCarouselWithIndicator(
