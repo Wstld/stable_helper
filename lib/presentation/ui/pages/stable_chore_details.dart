@@ -4,6 +4,7 @@ import 'package:stable_helper/data/models/models.dart';
 import 'package:stable_helper/presentation/controller/controllers.dart';
 import 'package:stable_helper/presentation/controller/home_root_controller.dart';
 import 'package:stable_helper/presentation/ui/ui.dart';
+import 'package:stable_helper/presentation/ui/widgets/sh_appbar.dart';
 import 'package:stable_helper/presentation/ui/widgets/user_home/chore_details_tile.dart';
 
 class StableChoreDetailsPage extends GetView<HomeRootController> {
@@ -13,19 +14,7 @@ class StableChoreDetailsPage extends GetView<HomeRootController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: const Icon(Icons.chevron_left),
-            onPressed: () => Get.back(),
-          ),
-          actions: [
-            Builder(
-                builder: (context) => IconButton(
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                    icon: const Icon(Icons.menu))),
-          ],
-        ),
+        appBar: const ShAppBar(showBackBtn: true),
         drawer: const UserMainMenu(),
         body: GetBuilder<StableChoreDetailsController>(
             init: StableChoreDetailsController(
