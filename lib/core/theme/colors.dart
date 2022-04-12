@@ -10,4 +10,5 @@ class ShColors {
   static const darkBlue = Color.fromARGB(255, 84, 169, 169);
   static const sand = Color.fromARGB(255, 237, 246, 229);
   static const background = Color.fromARGB(255, 239, 255, 255);
+  static const lighterBlue = Color.fromARGB(255, 212, 238, 238);
 }
