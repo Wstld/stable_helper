@@ -6,6 +6,7 @@ import 'package:stable_helper/dependency_injection.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   DependencyInjection.init();
 
   runApp(const App());

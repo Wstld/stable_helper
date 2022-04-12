@@ -14,16 +14,15 @@ class HomeRootPage extends GetView {
         appBar: const ShAppBar(
           showBackBtn: false,
         ),
+        extendBody: true,
         drawer: const UserMainMenu(),
-        body: SingleChildScrollView(
-          child: GetBuilder<HomeRootController>(
-            init: Get.put(HomeRootController(Get.find(), Get.find())),
-            builder: (controller) => controller.obx(
-              (userData) => userData!.stablesId == null
-                  ? const UserHomeContainerNonMember()
-                  : const UserHomeContainerMember(),
-              onEmpty: const Text('Show on boarding'),
-            ),
+        body: GetBuilder<HomeRootController>(
+          init: Get.put(HomeRootController(Get.find(), Get.find())),
+          builder: (controller) => controller.obx(
+            (userData) => userData!.stablesId == null
+                ? const UserHomeContainerNonMember()
+                : const UserHomeContainerMember(),
+            onEmpty: const Text('Show on boarding'),
           ),
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:stable_helper/core/constants/enums.dart';
@@ -34,42 +35,46 @@ class AddHorseSetupGridTile extends GetView<AddOrUpdateHorseController> {
           concentrateFeed: concentrateFeed),
       child: Obx(() => Material(
             elevation: isSelected() ? 10 : 2,
-            child: GridTile(
-              child: Container(
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                    color: isSelected()
-                        ? const Color.fromARGB(255, 225, 255, 222)
-                        : const Color.fromARGB(255, 242, 255, 251),
-                    border: Border.all(
-                        color: isSelected()
-                            ? const Color.fromARGB(255, 118, 118, 118)
-                            : const Color.fromARGB(255, 174, 174, 174),
-                        width: 1),
-                    gradient: isSelected()
-                        ? const LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                                Color.fromARGB(255, 181, 253, 231),
-                                Color.fromARGB(255, 210, 251, 243),
-                                Color.fromARGB(92, 172, 255, 200),
-                                Color.fromARGB(255, 210, 251, 243),
-                                Color.fromARGB(255, 181, 253, 231),
-                              ])
-                        : null),
-                child: Column(
-                  children: [
-                    Icon(
+            child: Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  color: isSelected()
+                      ? const Color.fromARGB(255, 225, 255, 222)
+                      : const Color.fromARGB(255, 242, 255, 251),
+                  border: Border.all(
+                      color: isSelected()
+                          ? const Color.fromARGB(255, 118, 118, 118)
+                          : const Color.fromARGB(255, 174, 174, 174),
+                      width: 1),
+                  gradient: isSelected()
+                      ? const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                              Color.fromARGB(255, 181, 253, 231),
+                              Color.fromARGB(255, 210, 251, 243),
+                              Color.fromARGB(92, 172, 255, 200),
+                              Color.fromARGB(255, 210, 251, 243),
+                              Color.fromARGB(255, 181, 253, 231),
+                            ])
+                      : null),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: Icon(
                       icon,
                       size: icon == Icons.timer ? 50 : 80,
                       color: isSelected()
                           ? const Color.fromARGB(255, 21, 156, 23)
                           : const Color.fromARGB(255, 0, 0, 0),
                     ),
-                    Text(title)
-                  ],
-                ),
+                  ),
+                  AutoSizeText(
+                    title,
+                    maxLines: 1,
+                  )
+                ],
               ),
             ),
           )),
